@@ -1,0 +1,15 @@
+.pilt{
+height: 200px;
+cursor: pointer;
+}
+.pilt:hover{
+  opacity: 0.5;
+}
+.nupp{
+background-color: red;
+cursor: pointer;
+}
+
+.nupp:hover{
+  opacity: 0.5;
+}
