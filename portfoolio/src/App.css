@@ -5,6 +5,11 @@
   margin: 50px auto;
 }
 
+.algus{
+  text-align: center;
+  font-style: italic;
+}
+
 .main-picture{
   height:200px;
   width: 50%;

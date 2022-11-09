@@ -8,9 +8,10 @@ function App() {
   return (
     <div className="App">
       <img className='main-picture' src='https://i.kym-cdn.com/entries/icons/facebook/000/029/498/Frog_relaxing_0-9_screenshot.jpg' alt='Istuv konn'></img>    
+      <div className='algus'>Tere! Koostasin selle lehe konnadest, sest miks mitte. </div>
       <div className='rectangle'></div>
 
-      <div className='navigation-picture'>
+      <div className='navigation-pictures'>
       <Link className='main-link' to='happy'>
       <img src='https://images.fineartamerica.com/images/artworkimages/mediumlarge/3/happy-frog-663-kevin-chippindall.jpg' alt='õnnelik konn'></img>
       <p>Õnneliku konna lehele</p>
@@ -28,7 +29,8 @@ function App() {
       
       </div>
 
-      <iframe width='200' height='115' src='https://www.youtube.com/embed/7xzU9Qqdqww' title='Youtube video'></iframe>
+      <iframe width='200' height='115' src='https://www.youtube.com/embed/ksbYZ9bDWSA' title='Youtube video häälitsevast konnast'></iframe>
+      
       <Routes>
         <Route path='happy' element={ <Happy />}></Route>
         <Route path='sad' element={<Sad />}></Route>
