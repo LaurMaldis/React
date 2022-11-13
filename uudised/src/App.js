@@ -4,7 +4,7 @@ import Avaleht from './pages/Avaleht';
 import Meist from './pages/Meist';
 import Kontakt from './pages/Kontakt';
 import Uudised from './pages/Uudised';
-
+import Seaded from './pages/Seaded';
 
 function App() {
   return (
@@ -21,11 +21,16 @@ function App() {
       <Link to='/meist'>
         <button>Info meist</button>
       </Link>
+      <Link to='/seaded'>
+        <button>Seadetesse</button>
+      </Link>
+      
    	  <Routes>
-        <Route path='avaleht' element={ <Avaleht />}/>
+        <Route path='' element={ <Avaleht />}/>
         <Route path='uudised' element={ <Uudised /> }/>
         <Route path='kontakt' element={ <Kontakt /> }/>   
         <Route path='meist' element={ <Meist /> }/>
+        <Route path='seaded' element={ <Seaded /> }/>
       </Routes>
     </div>
   );
