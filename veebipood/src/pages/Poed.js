@@ -1,5 +1,30 @@
+import { useState } from "react";
+
 function Poed() {
-    return ( <div>Poed</div> );
+  //  const poed = ['Kristiine','Põhja-Tallinn','Mustamäe','Kesklinn','Haabersti','Õismäe','Mustika'] ;
+    const [poed, muudaPoed ] = useState(['Kristiine','Põhja-Tallinn','Mustamäe','Kesklinn','Haabersti','Õismäe','Mustika'])
+
+    const sorteeriAZ = () => {
+        poed.sort();
+        muudaPoed(poed.slice());
+    }
+
+    return ( 
+    <div>
+        <button onClick={sorteeriAZ}>Järjesta tähestiku alusel</button>
+        { poed.map((yksPood, j2rjekorraNumber) => <div key={j2rjekorraNumber}>{yksPood}</div> ) }
+
+        <div>----------</div>
+        <div>Kristiine</div>
+        <div>Põhja-Tallinn</div>
+        <div>Mustamäe</div>
+        <div>Kesklinn</div>
+        <div>Haabersti</div>
+        <div>Õismäe</div>
+        <div>Mustika</div>
+
+
+    </div> );
 }
 
 export default Poed;
