@@ -10,6 +10,8 @@ import Poed from './pages/Poed';
 import Seaded from './pages/Seaded';
 import YksikToode from './pages/YksikToode';
 import Meist from './pages/Meist';
+import Tooted from './pages/Tooted';
+import Albums from './pages/Albums';
 
 
 /*Kui miski ei toimi, siis 2 kohta kust vaadata on kus npm start
@@ -53,16 +55,26 @@ function App() {
     <button className='nupp'>Meist</button>
     </Link>
 
+    <Link to='/tooted'>
+    <button className='nupp'>Tooted</button>
+    </Link>
+
+    <Link to='/albums'>
+    <button className='nupp'>albums</button>
+    </Link>
+
     <Routes>
       <Route path ="" element={ <Avaleht />  } />
       <Route path ="ostukorv" element={ <Ostukorv /> } />
       <Route path ="lisa-toode" element={ <LisaToode /> } />
       <Route path ='halda' element={<HaldaTooteid />} />
-      <Route path ='muuda' element={<MuudaToode />} /> 
+      <Route path ='muuda/:jj' element={<MuudaToode />} /> 
       <Route path ='poed' element={<Poed />} />
       <Route path ='seaded' element={<Seaded />} />
-      <Route path ='toode' element={<YksikToode />} />
+      <Route path ='toode/:index' element={<YksikToode />} />
       <Route path ='meist' element={<Meist />} />
+      <Route path ='tooted' element={<Tooted />} />
+      <Route path ='albums' element={<Albums />} />
     </Routes>
     
     </div>

@@ -1,65 +1,52 @@
 import { useRef, useState } from "react";
 
+// .sort muudab järjekorda (a,b)
+// .filter vähendab
+// .map asendab igaüht (kogus jääb samaks)
+// .splice (mitmendatKustutam, mituTükkiKustutan) 
+// .
 
-
-function Poed() {
-
-    const [poed, muudaPoed ] = useState(
-        [
-            {nimi:'Kristiine', aeg:'9-22'},
-            {nimi:'Põhja-Tallinn', aeg:'9-21'},
-            {nimi:'Mustamäe', aeg:'8-22'},
-            {nimi:'Kesklinn', aeg:'8-23'},
-            {nimi:'Haabersti', aeg:'8-20'},
-            {nimi:'Õismäe', aeg:'9-20'},
-            {nimi:'Mustika', aeg:'24/7h'},
-        ])
+function PoedVana() {
+  //  const poed = ['Kristiine','Põhja-Tallinn','Mustamäe','Kesklinn','Haabersti','Õismäe','Mustika'] ;
+    const [poed, muudaPoed ] = useState(['Kristiine','Põhja-Tallinn','Mustamäe','Kesklinn','Haabersti','Õismäe','Mustika'])
     
     const tyhFiltreer = () => {
-        muudaPoed(
-        [  
-            {nimi:'Kristiine', aeg:'9-22'},
-            {nimi:'Põhja-Tallinn', aeg:'9-21'},
-            {nimi:'Mustamäe', aeg:'8-22'},
-            {nimi:'Kesklinn', aeg:'8-23'},
-            {nimi:'Haabersti', aeg:'8-20'},
-            {nimi:'Õismäe', aeg:'9-20'},
-            {nimi:'Mustika', aeg:'24/7h'}
-    ]);
+        muudaPoed(['Kristiine','Põhja-Tallinn','Mustamäe','Kesklinn','Haabersti','Õismäe','Mustika']);
     }
 
     const sorteeriAZ = () => {
-        poed.sort( (a,b) => a.nimi.localeCompare(b.nimi) ); 
+        poed.sort(); //poed.sort((a,b ) => a.localeCompare(b)) ka variant
         muudaPoed(poed.slice());
     }
 
     const sorteeriZA = () => { 
-        poed.sort((a,b) => b.nimi.localeCompare(a.nimi));
+        poed.sort();  //poed.sort((a,b ) => -1 * a.localeCompare(b)) ka variant
+        poed.reverse(); //poed.sort((a,b ) => b.localeCompare(a)) ka variant
         muudaPoed(poed.slice());
     }
 
     const filtreeri = () => {
-        const tagastus = poed.filter(element => element.nimi.endsWith('mäe')); //sobib ka element.includes('mäe');
+        const tagastus = poed.filter(element => element.endsWith('mäe')); //sobib ka element.includes('mäe');
         muudaPoed(tagastus);
     }
 
     const filtr = () => {
-        const tagastus = poed.filter(element => element.nimi.charAt(1) === 'i');
+        const tagastus = poed.filter(element => element.charAt(1) === 'i');
         muudaPoed(tagastus);
     }
     
     const muudaIgayht = () => {
-        const tagastus = poed.map(element => {return {nimi: '--' + element, aeg: element.aeg}});
+        const tagastus = poed.map(element => '--' + element);
         muudaPoed(tagastus);
     }
 
     const vaikeTaht = () => {
-        const tagastus = poed.map(element => {return {nimi: element.nimi.toLowerCase(), aeg: element.aeg}} );
+        const tagastus = poed.map(element => element.toLowerCase());
         muudaPoed(tagastus);
     }
 
     const pikkus = () => {
-        poed.sort((a,b) => a.nimi.length - b.nimi.length);
+        poed.sort((a,b) => a.length - b.length);
         muudaPoed(poed.slice());
     }
 
@@ -69,10 +56,8 @@ function Poed() {
     };
 
     const poodRef = useRef();
-    const aegRef = useRef();
-
     const lisaPood = () => {
-        poed.push({nimi: poodRef.current.value, aeg: aegRef.current.value});
+        poed.push(poodRef.current.value);
         muudaPoed(poed.slice());
     };
 
@@ -80,8 +65,6 @@ function Poed() {
     <div>
         <label>Uus pood</label>
         <input ref={poodRef} type="text" />
-        <label>Uue poe lahtioleku aeg</label>
-        <input ref={aegRef} type="text" />
         <button onClick={lisaPood}>Sisesta</button>
 
 
@@ -99,11 +82,21 @@ function Poed() {
 
         { poed.map((yksPood, i) => 
         <div key={i}>
-            {yksPood.nimi} {yksPood.aeg}
+            {yksPood}
             <button onClick={() => kustuta(i)}>x</button>
         </div> ) }
+
+        <div>----------</div>
+        <div>Kristiine</div>
+        <div>Põhja-Tallinn</div>
+        <div>Mustamäe</div>
+        <div>Kesklinn</div>
+        <div>Haabersti</div>
+        <div>Õismäe</div>
+        <div>Mustika</div>
+
 
     </div> );
 }
 
-export default Poed;
+export default PoedVana;
