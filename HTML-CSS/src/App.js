@@ -5,6 +5,7 @@ import Avaleht from './pages/Avaleht';
 import Meist from './pages/Meist';
 import Kontakt from './pages/Kontakt';
 import Seaded from './pages/Seaded';
+import Kodu from './pages/Kodu';
 
 function App() {
   const [ sisselogitud, muudaSisselogitud ] = useState('ei');
@@ -58,12 +59,16 @@ function App() {
       <Link to='/seaded'>
         <button>Seaded</button>
       </Link>
+      <Link to='/kodu'>
+        <button>kodu</button>
+      </Link>
       
    	  <Routes>
         <Route path='' element={ <Avaleht />}/>
         <Route path='kontakt' element={ <Kontakt /> }/>   
         <Route path='meist' element={ <Meist /> }/>
         <Route path='seaded' element={ <Seaded /> }/>
+        <Route path='kodu' element={ <Kodu /> }/>
       </Routes>
     </div>
   );

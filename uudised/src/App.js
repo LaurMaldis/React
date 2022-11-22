@@ -5,6 +5,10 @@ import Meist from './pages/Meist';
 import Kontakt from './pages/Kontakt';
 import Uudised from './pages/Uudised';
 import Seaded from './pages/Seaded';
+import Lisauudis from './pages/Lisauudis';
+import HaldaUudised from './pages/HaldaUudised';
+import YksUudis from './pages/YksUudis';
+import MuudaUudis from './pages/MuudaUudis';
 
 function App() {
   return (
@@ -24,13 +28,25 @@ function App() {
       <Link to='/seaded'>
         <button>Seadetesse</button>
       </Link>
-      
+      <Link to='/lisauudis'>
+        <button>Lisa uudis</button>
+      </Link>
+      <Link to='/HaldaUudised'>
+        <button>Halda uudised</button>
+      </Link>
+    
+  
+
    	  <Routes>
         <Route path='' element={ <Avaleht />}/>
         <Route path='uudised' element={ <Uudised /> }/>
         <Route path='kontakt' element={ <Kontakt /> }/>   
         <Route path='meist' element={ <Meist /> }/>
         <Route path='seaded' element={ <Seaded /> }/>
+        <Route path='lisauudis' element={ <Lisauudis /> }/>
+        <Route path='HaldaUudised' element={ <HaldaUudised /> }/>
+        <Route path='/YksUudis/:index' element={ <YksUudis /> }/>
+        <Route path='/MuudaUudis/:index' element={ <MuudaUudis /> }/>
       </Routes>
     </div>
   );

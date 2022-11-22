@@ -1,8 +1,22 @@
+import {Link} from 'react-router-dom';
+
 function Uudised() {
+    const naide = (JSON.parse(localStorage.getItem('uudised')) || [] );
+
+    
     return ( 
     <div>
-        <div>See on uudiste leht, nähtav localhost:3000/uudised aadressil</div>
-        <div>Hetkel ei ole uudiseid, kuid peagi lisame!</div>
+       { naide.length === 0 && <div>Ühtegi uudist hetkel pole, kuid lisame õigepea!</div>}
+       
+       
+       { naide.map((uudis, i ) => 
+       <div key={i}> 
+        <Link to={'/YksUudis/' + i}>
+        <div>{uudis}</div>
+        </Link>
+        </div>
+        ) }
+       
     </div> );
 }
 
