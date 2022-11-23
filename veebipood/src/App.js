@@ -12,6 +12,7 @@ import YksikToode from './pages/YksikToode';
 import Meist from './pages/Meist';
 import Tooted from './pages/Tooted';
 import Albums from './pages/Albums';
+import Coop from './pages/Coop';
 
 
 /*Kui miski ei toimi, siis 2 kohta kust vaadata on kus npm start
@@ -62,6 +63,9 @@ function App() {
     <Link to='/albums'>
     <button className='nupp'>albums</button>
     </Link>
+    <Link to='/coop'>
+    <button className='nupp'>coop</button>
+    </Link>
 
     <Routes>
       <Route path ="" element={ <Avaleht />  } />
@@ -75,6 +79,7 @@ function App() {
       <Route path ='meist' element={<Meist />} />
       <Route path ='tooted' element={<Tooted />} />
       <Route path ='albums' element={<Albums />} />
+      <Route path ='coop' element={<Coop />} />
     </Routes>
     
     </div>

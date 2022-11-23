@@ -45,8 +45,8 @@ function App() {
         <Route path='seaded' element={ <Seaded /> }/>
         <Route path='lisauudis' element={ <Lisauudis /> }/>
         <Route path='HaldaUudised' element={ <HaldaUudised /> }/>
-        <Route path='/YksUudis/:index' element={ <YksUudis /> }/>
-        <Route path='/MuudaUudis/:index' element={ <MuudaUudis /> }/>
+        <Route path='/YksUudis/:i' element={ <YksUudis /> }/>
+        <Route path='/MuudaUudis/:i' element={ <MuudaUudis /> }/>
       </Routes>
     </div>
   );

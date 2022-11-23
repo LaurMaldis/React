@@ -3,6 +3,9 @@ import { useRef, useState } from 'react';
 function LisaToode() {
     const [ sonum, uuendaSonum ] = useState('Vali endale sobivad tooted.');
     const nimiViide = useRef();
+    const hindRef = useRef();
+    const piltRef = useRef();
+    const activeRef = useRef();
 
     function lisa (){
         if (nimiViide.current.value === '') {
@@ -21,7 +24,13 @@ function LisaToode() {
 
         let tootedLS = localStorage.getItem('tooted') || "[]"; // lõpp on et kui see on tühi, siis tee edasi mis on edasi
         tootedLS = JSON.parse(tootedLS); // || [] võib siin ka olla, aga ilma jutumärkidega
-        tootedLS.push(nimiViide.current.value);
+        const uusToode = {
+            'nimi': nimiViide.current.value, 
+            'hind': Number(hindRef.current.value), 
+            'pilt': piltRef.current.value, 
+            'aktiivne': activeRef.current.checked, 
+        }
+        tootedLS.push(uusToode);
         tootedLS = JSON.stringify(tootedLS);
         localStorage.setItem('tooted', tootedLS);         // need 5 punkti on täpselt ülemise kirjeldus
 
@@ -39,6 +48,15 @@ function LisaToode() {
         <div>{sonum}</div>
         <label>Toote nimi:</label>
         <input ref={nimiViide} type="text" />
+        <br></br>
+        <label>Toote hind:</label>
+        <input ref={hindRef} type="number" />
+        <br></br>
+        <label>Toote pilt:</label>
+        <input ref={piltRef} type="text" />
+        <br></br>
+        <label>Toote aktiivus:</label>
+        <input ref={activeRef} type="checkbox" />
         <br></br>
         <button onClick={lisa}>Lisa uus toode</button>
     </div> );

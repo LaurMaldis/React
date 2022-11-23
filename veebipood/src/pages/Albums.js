@@ -4,7 +4,7 @@ function Albums() {
     return ( 
     <div>
 
-        {albums.map(element => <div>{element.title}</div>)}
+        {albums.map(element => <div key={element.id}>{element.title}</div>)}
 
     </div>
      );

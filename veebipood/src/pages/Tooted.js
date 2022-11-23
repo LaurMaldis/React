@@ -16,7 +16,12 @@ function Tooted() {
             {tooted.map((element, index) =>
             <div key={index}>
               <Link to={'/toode/' + index}>
-              {element}
+
+              <img src={element.pilt} alt='mingi pilt'></img>
+              <div>{element.nimi}</div>
+              <div>{element.hind} €</div>
+              <div>{element.aktiivne + 0}</div>
+              
               </Link>
             <button onClick={ () => lisaOstukorvi(element)}>Lisa ostukorvi</button>
             </div>)}
