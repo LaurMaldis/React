@@ -2,6 +2,7 @@ import {Route, Routes, Link} from 'react-router-dom';
 import Container from 'react-bootstrap/Container';
 import Nav from 'react-bootstrap/Nav';
 import Navbar from 'react-bootstrap/Navbar';
+import { useState } from 'react';
 
 import './App.css';
 
@@ -17,8 +18,19 @@ import MaintainShops from './pages/admin/MaintainShops';
 import MaintainProduct from './pages/admin/MaintainProducts';
 
 
-
 function App() {
+
+  const [ lang, langNew ] = useState(localStorage.getItem('language'));
+
+  const estonian = () => {
+    localStorage.setItem('language', 'est');
+    langNew('est');
+  }
+
+  const english = () => {
+    localStorage.setItem('language','eng');
+    langNew('est');
+  }
 
   return (
     <div className='App'>
@@ -30,9 +42,17 @@ function App() {
             <Nav.Link as={Link} to='/admin'>Admin</Nav.Link>
             <Nav.Link as={Link} to='/shops'>Shops</Nav.Link>
             <Nav.Link as={Link} to='/cart'>Cart</Nav.Link>
+            <Nav.Link onClick={estonian}><img src="https://i.ak24.ee/img_prd/13/13146/eesti-lipp-kleebis-117x76mm.jpg" alt="Estonian flag" width='40' height='20' /></Nav.Link>
+            <Nav.Link onClick={english}><img src='https://cdn.pixabay.com/photo/2013/07/13/14/17/united-kingdom-162452__340.png' alt='English flag' width='40' height='20'  ></img> </Nav.Link>
           </Nav>
         </Container>
       </Navbar>
+
+      <div>
+      {lang === 'est' && <div>Page is now Estonian</div> }
+      {lang === 'eng' && <div>Page is now English </div> }
+
+      </div>
 
 
 
