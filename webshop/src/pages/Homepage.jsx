@@ -26,7 +26,6 @@ const Homepage = () => {
 
   const priceDesc = () => {
     shops.sort((a,b) => b.price - a.price);
-
     shopsNew(shops.slice());
   } 
 
@@ -39,10 +38,10 @@ const Homepage = () => {
     <button onClick={priceDesc}>Sort price descending</button>
 
     {ProductsFromFile.map(element =>
-    <div>
+    <div key={element.id}>
     <img src={element.image} alt='picture of product'></img>
     <div>{element.name}</div>   
-    <div>{element.price}</div>
+    <div>{element.price}€</div>
     <button onClick={addToCart}>Add to cart</button>
     </div>
     )}  
