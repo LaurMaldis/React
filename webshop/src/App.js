@@ -2,7 +2,7 @@ import {Route, Routes, Link} from 'react-router-dom';
 import Container from 'react-bootstrap/Container';
 import Nav from 'react-bootstrap/Nav';
 import Navbar from 'react-bootstrap/Navbar';
-import { useState } from 'react';
+//import { useState } from 'react';
 
 import './App.css';
 
@@ -48,7 +48,7 @@ function App() {
         <Route path='' element={ <Homepage /> }/>
         <Route path='cart' element={ <Cart /> }/>
         <Route path='shops' element={ <Shops /> }/>
-        <Route path='product' element={ <SingleProduct /> }/>
+        <Route path='product/:id' element={ <SingleProduct /> }/>
         <Route path='admin' element={ <AdminHome /> }/>
         <Route path='admin/add-product' element={ <AddProduct /> }/>
         <Route path='admin/edit-product/:id' element={ <EditProduct /> }/>

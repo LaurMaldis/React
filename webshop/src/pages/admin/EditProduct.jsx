@@ -6,7 +6,7 @@ import ProductsFromFile from '../../data/products.json'
 const EditProduct = () => {
 
   const {id} = useParams();
-  const productFound = ProductsFromFile.find(element => element.id === Number(id))
+  const productFound = ProductsFromFile.find(element => element.id === Number(id));
   const index = ProductsFromFile.indexOf(productFound);
   const idRef = useRef();
   const nameRef = useRef();
@@ -64,7 +64,7 @@ export default EditProduct
 
 //SingleProducts
 //1.urli muutuja kooloni abil
-//2. toodete vaat es saan vajutada, et lähek sellele URLIle
+//2. toodete vaates saan vajutada, et läheks sellele URLIle
 //3. Sinna lehele kuhu saabun, pean tegema useParams() ja võtma selle muutuja
 // ehk selle koha kus asub see koolon URLis ja võtan ta kasutusele 
 //4. võtan kõik tooted
@@ -73,7 +73,7 @@ export default EditProduct
 //7. teen dünaamilise väljakuvamise juhuks kui teda ei ole findiga leitud
 
 //AddProduct
-// 8. iga toote võtme kohta ref - kokku 8tk: id, name, price, image, category, description, active
+// 8. iga toote võtme kohta ref - kokku 7tk: id, name, price, image, category, description, active
 // ref-st ka import
 //9. teen 7 korda label + input
 //10. teen 7 korda inputi sisse ref panemist
