@@ -8,6 +8,7 @@ const SingleProduct = () => {
   
   return (
     <div>
+
       {productFound !== undefined &&
     <div>
 
@@ -21,10 +22,10 @@ const SingleProduct = () => {
       )} 
 
 
-    </div>}
+    </div>} 
 
 
-    {productFound === undefined &&
+     {productFound === undefined &&
     <div>
       Toodet ei leitud
     </div>}

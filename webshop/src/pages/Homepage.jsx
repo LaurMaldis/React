@@ -46,13 +46,17 @@ const Homepage = () => {
       
       {products.map(element =>
       <div key={element.id}>
+
+      <Link to={'/SingleProduct/' + element.id}>
         <img src={element.image} alt='product'></img>
         <div>{element.name}</div>   
         <div>{element.price}€</div>
-      <button onClick={addToCart}>Add to cart</button>
-      <Link to={'/SingleProduct/' + element.id}>
-      <button>tootele</button> 
       </Link>
+
+      <button onClick={addToCart}>Add to cart</button>
+      
+    
+      
       </div>)}
         
   

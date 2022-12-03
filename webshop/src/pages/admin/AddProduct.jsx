@@ -4,7 +4,7 @@ import ProductsFromFile from '../../data/products.json';
 
 const AddProduct = () => {
 
-  const [ setMessage ] = useState();
+  const [ message, setMessage ] = useState();
   const idRef = useRef();
   const nameRef = useRef();
   const priceRef = useRef();
@@ -15,8 +15,14 @@ const AddProduct = () => {
 
   
   const productAdd = () => {
-    if (nameRef.current.value === '') {
-      setMessage('Ei saa lisada ilma toote nimeta!')
+    if (idRef.current.value === '',
+    nameRef.current.value === '',
+    priceRef.current.value === '',
+    imageRef.current.value === '',
+    categoryRef.current.value === '',
+    descriptionRef.current.value === ''
+    ) {
+      setMessage('Täida kõik lüngad!')
     } else {
 
     const updateProductinfo = {
@@ -35,6 +41,7 @@ const AddProduct = () => {
   return (
     <div>
 
+    <div>{message}</div>
       <div>
       <label>ID</label><br />
       <input ref={idRef} type="number" /> <br />
