@@ -1,11 +1,12 @@
 import ProductsFromFile from '../data/products.json'
 import { useState } from 'react';
 import { Link} from 'react-router-dom';
+import { useTranslation } from 'react-i18next';
 
 const Homepage = () => {
   
   const [ products, shopsNew ] = useState(ProductsFromFile);
-
+  const { t } = useTranslation();
 
 
   const addToCart = () => {
@@ -37,10 +38,10 @@ const Homepage = () => {
 
   return (
     <div>
-    <button onClick={AtoZ}>Sort A-Z</button>
-    <button onClick={ZtoA}>Sort Z-A</button>
-    <button onClick={priceAsc}>Sort price ascending</button>
-    <button onClick={priceDesc}>Sort price descending</button>
+    <button onClick={AtoZ}>{t('sortAZ')}</button>
+    <button onClick={ZtoA}>{t('sortZA')}</button>
+    <button onClick={priceAsc}>{t('priceascending')}</button>
+    <button onClick={priceDesc}>{t('pricedescending')}</button>
 
       
       
@@ -53,7 +54,7 @@ const Homepage = () => {
         <div>{element.price}€</div>
       </Link>
 
-      <button onClick={addToCart}>Add to cart</button>
+      <button onClick={addToCart}>{t('addtocart')}</button>
       
     
       

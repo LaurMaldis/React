@@ -37,7 +37,7 @@ const MaintainProduct = () => {
         <div>{element.category}</div>
         <button onClick={() => remove(index)}>x</button>
         <Link to={'/admin/edit-product/' + element.id}>
-        <button>Muuda</button> 
+        <button>{t('change')}</button> 
         </Link>
       </div>)}
 

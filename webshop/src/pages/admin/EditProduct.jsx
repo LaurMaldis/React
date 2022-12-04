@@ -2,8 +2,11 @@ import { useRef } from 'react';
 import  { useNavigate, useParams } from 'react-router-dom';
 import ProductsFromFile from '../../data/products.json'
 
+import { useTranslation } from 'react-i18next';
 
 const EditProduct = () => {
+
+  const { t } = useTranslation();
 
   const {id} = useParams();
   const productFound = ProductsFromFile.find(element => element.id === Number(id));
@@ -37,23 +40,23 @@ const EditProduct = () => {
     <div>
       <label>ID</label>
       <input ref={idRef} defaultValue={productFound.id} type="number" /> <br />
-      <label>Name</label><br />
+      <label>{t('name')}</label><br />
       <input ref={nameRef} defaultValue={productFound.name} type="text" /> <br />
-      <label>Price</label><br />
+      <label>{t('price')}</label><br />
       <input ref={priceRef} defaultValue={productFound.price} type="number" /> <br />
-      <label>Image</label><br />
+      <label>{t('immg')}</label><br />
       <input ref={imageRef} defaultValue={productFound.image} type="text" /> <br />
-      <label>Category</label><br />
+      <label>{t('category')}</label><br />
       <input ref={categoryRef} defaultValue={productFound.category} type="text" /> <br />
-      <label>Description</label><br />
+      <label>{t('description')}</label><br />
       <input ref={descriptionRef} defaultValue={productFound.description} type="text" /> <br />
-      <label>Active</label><br />
+      <label>{t('active')}</label><br />
       <input ref={activeRef} defaultChecked={productFound.active} type="checkbox" /> <br />
-      <button onClick={changeProduct}>Muuda</button>
+      <button onClick={changeProduct}>{t('change')}</button>
     </div>}
     {productFound === undefined &&
     <div>
-      Toodet ei leitud
+      {t('product-not-found')}
     </div>}
 
     </div>

@@ -41,6 +41,7 @@ function App() {
           </Nav>
           <div><img className='lang' onClick={() => changeLang('en')} src='../uk.jpg' alt='English flag' /></div>
           <div><img className='lang' onClick={() => changeLang('ee')} src="../eesti.jpg" alt="Estonian flag" /></div>
+          <div><img className='lang' onClick={() => changeLang('fi')} src="../finland.png" alt="Finnish flag" /></div>
         </Container>
       </Navbar>
 
