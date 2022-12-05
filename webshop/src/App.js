@@ -16,7 +16,9 @@ import EditProduct from './pages/admin/EditProduct';
 import MaintainCategories from './pages/admin/MaintainCategories';
 import MaintainShops from './pages/admin/MaintainShops';
 import MaintainProduct from './pages/admin/MaintainProducts';
+import {ContactUs} from './pages/ContactUs';
 import { useTranslation } from 'react-i18next';
+
 
 function App() {
 
@@ -37,6 +39,7 @@ function App() {
           <Nav className="me-auto">
             <Nav.Link as={Link} to='/admin'>{t('admin')}</Nav.Link>
             <Nav.Link as={Link} to='/shops'>{t('shops')}</Nav.Link>
+            <Nav.Link as={Link} to='/contact'>Kontakteeru meiega</Nav.Link>
             <Nav.Link as={Link} to='/cart'>{t('cart')}</Nav.Link>
           </Nav>
           <div><img className='lang' onClick={() => changeLang('en')} src='../uk.jpg' alt='English flag' /></div>
@@ -50,6 +53,7 @@ function App() {
         <Route path='cart' element={ <Cart /> }/>
         <Route path='shops' element={ <Shops /> }/>
         <Route path='product/:id' element={ <SingleProduct /> }/>
+        <Route path='contact' element={ <ContactUs /> }/>
         <Route path='admin' element={ <AdminHome /> }/>
         <Route path='admin/add-product' element={ <AddProduct /> }/>
         <Route path='admin/edit-product/:id' element={ <EditProduct /> }/>

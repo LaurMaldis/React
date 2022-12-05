@@ -3,11 +3,19 @@ import { useRef } from "react";
 import ProductsFromFile from '../../data/products.json';
 import { useTranslation } from 'react-i18next';
 
+// hookid   use algusega: useState, useRef, useParams, useNavigate, useTranslate
+// Reacti erikoodid, mida ei eksisteeri tavalises JavaScriptis, lihtsustab
+// Hooke tuleb alati importida
+// Hookidel on alati sulud lõpus kui neid luuakse
+// Hooke ei saa luua dünaamiliselt ega funktsioonide seas
+// Hookid peaksid alati olema top-level componendi sees
+
 const AddProduct = () => {
 
   const { t } = useTranslation();
-
+  const [idUnique, setIdUnique] = useState(true);
   const [ message, setMessage ] = useState();
+
   const idRef = useRef();
   const nameRef = useRef();
   const priceRef = useRef();
@@ -40,15 +48,27 @@ const AddProduct = () => {
     };
     ProductsFromFile.push(updateProductinfo);
   
-  }}
+  }};
+
+  const checkIdUniqueness = () => {
+    console.log(idRef.current.value);
+    const found = ProductsFromFile.find(element => element.id === Number(idRef.current.value));
+    if (found === undefined) {
+      setIdUnique(true);
+    } 
+    else {
+      setIdUnique(false);
+    }
+  };
 
   return (
     <div>
+      {idUnique === false  && <div>Kellelgi on sama ID!</div>}
 
     <div>{message}</div>
       <div>
       <label>ID</label><br />
-      <input ref={idRef} type="number" /> <br />
+      <input ref={idRef} onChange={checkIdUniqueness} type="number" /> <br />
       <label>{t('name')}</label><br />
       <input ref={nameRef} type="text" /> <br />
       <label>{t('price')}</label><br />
@@ -61,7 +81,7 @@ const AddProduct = () => {
       <input ref={descriptionRef} type="text" /> <br />
       <label>{t('active')}</label><br />
       <input ref={activeRef} type="checkbox" /> <br />
-      <button onClick={productAdd}>{t('add')}</button>
+      <button disabled={idUnique === false} onClick={productAdd}>{t('add')}</button>
     </div>
       
       

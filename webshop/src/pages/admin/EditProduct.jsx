@@ -1,5 +1,5 @@
-import { useRef } from 'react';
-import  { useNavigate, useParams } from 'react-router-dom';
+import { useRef, useState } from 'react';
+import  { useNavigate, useParams} from 'react-router-dom';
 import ProductsFromFile from '../../data/products.json'
 
 import { useTranslation } from 'react-i18next';
@@ -7,10 +7,11 @@ import { useTranslation } from 'react-i18next';
 const EditProduct = () => {
 
   const { t } = useTranslation();
-
   const {id} = useParams();
   const productFound = ProductsFromFile.find(element => element.id === Number(id));
   const index = ProductsFromFile.indexOf(productFound);
+  const [idUnique, setIdUnique] = useState(true);
+ 
   const idRef = useRef();
   const nameRef = useRef();
   const priceRef = useRef();
@@ -32,14 +33,30 @@ const EditProduct = () => {
     };
     ProductsFromFile[index] = updateProduct;
     navigate('/admin/maintain-products');
-  }
+  };
+
+  const checkIdUniqueness = () => {
+    if (idRef.current.value === id) {
+      setIdUnique(true);
+      return; 
+    } 
+    
+    const found = ProductsFromFile.find(element => element.id === Number(idRef.current.value));
+    if (found === undefined) {
+      setIdUnique(true);
+    } 
+    else {
+      setIdUnique(false);
+    }
+  };
 
   return (
     <div>
     {productFound !== undefined &&
     <div>
+      {idUnique === false  && <div>Kellelgi on sama ID!</div>}
       <label>ID</label>
-      <input ref={idRef} defaultValue={productFound.id} type="number" /> <br />
+      <input ref={idRef} onChange={checkIdUniqueness} defaultValue={productFound.id} type="number" /> <br />
       <label>{t('name')}</label><br />
       <input ref={nameRef} defaultValue={productFound.name} type="text" /> <br />
       <label>{t('price')}</label><br />
@@ -52,7 +69,7 @@ const EditProduct = () => {
       <input ref={descriptionRef} defaultValue={productFound.description} type="text" /> <br />
       <label>{t('active')}</label><br />
       <input ref={activeRef} defaultChecked={productFound.active} type="checkbox" /> <br />
-      <button onClick={changeProduct}>{t('change')}</button>
+      <button disabled={idUnique === false} onClick={changeProduct}>{t('change')}</button>
     </div>}
     {productFound === undefined &&
     <div>

@@ -1,5 +1,5 @@
 import { Link } from 'react-router-dom';
-import { useState } from 'react';
+import { useState, useRef } from 'react';
 import ProductsFromFile from '../../data/products.json'
 import { ToastContainer, toast } from 'react-toastify';
 import { useTranslation } from 'react-i18next';
@@ -8,10 +8,8 @@ import { useTranslation } from 'react-i18next';
 const MaintainProduct = () => {
 
   const [ products, setProducts ] = useState(ProductsFromFile);
-  const {t} = useTranslation(
-
-
-  );
+  const {t} = useTranslation();
+  const searchedRef = useRef();
 
   const remove = (i) => {
     ProductsFromFile.splice(i, 1);
@@ -22,11 +20,19 @@ const MaintainProduct = () => {
       });
   };
 
+  const searchProducts = () => {
+    const result = ProductsFromFile.filter(element => 
+      element.name.toLowerCase().includes(searchedRef.current.value.toLowerCase()));
+    setProducts(result);
+  };
 
 
   return (
     <div>
-      
+      <input ref={searchedRef} onChange={searchProducts} type="text" />
+      <div>{products.length} toodet</div>
+      <br />
+
       {products.map((element, index) => 
       <div key={element.id}> 
         <img src={element.image} alt='product'></img>
