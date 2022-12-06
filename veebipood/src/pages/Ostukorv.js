@@ -13,19 +13,19 @@ function Ostukorv() {
     const tyhjenda = () => {
         muudaKorv([]);
         localStorage.setItem('ostukorv', JSON.stringify([]));
-    }
+    };
 
     const lisa = (toode) => {
         ostukorv.push(toode);
         muudaKorv(ostukorv.slice());
         localStorage.setItem('ostukorv', JSON.stringify(ostukorv));
-    }
+    };
 
     const kogusumma = () => {
       let summa= 0;
       ostukorv.forEach(element => summa = summa + element.hind)
       return summa;
-    }
+    };
 
 
     return ( 

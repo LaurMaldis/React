@@ -1,6 +1,6 @@
 import ProductsFromFile from '../data/products.json'
 import { useState } from 'react';
-import { Link} from 'react-router-dom';
+import { Link } from 'react-router-dom';
 import { useTranslation } from 'react-i18next';
 
 const Homepage = () => {
@@ -9,8 +9,10 @@ const Homepage = () => {
   const { t } = useTranslation();
 
 
-  const addToCart = () => {
+  const addToCart = (productsClicked) => {
     let cartLS = localStorage.getItem('cart');
+    cartLS.push(productsClicked);
+    localStorage.setItem('cart', cartLS);
   };
 
   const AtoZ = () => {
@@ -34,6 +36,7 @@ const Homepage = () => {
     shopsNew(products.slice());
   } 
 
+  
 
 
   return (

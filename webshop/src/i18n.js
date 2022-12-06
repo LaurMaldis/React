@@ -30,7 +30,13 @@ const resources = {
       'addtocart':'Add to cart',
       'add':'Add',
       'fillall':'Fill all the gaps!',
-
+      'contact-us':'Contact us',
+      'empty':'Empty',
+      'cartIsEmpty':'Cart is empty.',
+      'cartOneProd':'There is one item in the cart.',
+      'inCart':'In the cart there is',
+      'itms':'items',
+      'cartTotal':'Cart total',
 
     }
   },
@@ -59,6 +65,13 @@ const resources = {
       'addtocart':'Lisa ostukorvi',
       'add':'Lisa',
       'fillall':'Täida kõik lüngad!',
+      'contact-us':'Kontakteeru meiega',
+      'empty':'Tühjenda',
+      'cartIsEmpty':'Ostukorv on tühi.',
+      'cartOneProd':'Ostukorvis on 1 ese.',
+      'inCart':'Ostukorvis on',
+      'itms':'eset',
+      'cartTotal':'Ostukorvi kogusumma',
 
     }
   },
@@ -87,6 +100,13 @@ const resources = {
       'addtocart':'Lisää ostoskoriin',
       'add':'Lisaa',
       'fillall':'Täytä kaikki aukot!',
+      'contact-us':'Ota meihin yhteyttä',
+      'empty':'Tyhjä',
+      'cartIsEmpty':'Ostoskori on tyhjä.',
+      'cartOneProd':'Ostukorvis on 1 ese.',
+      'inCart':'Ostoskorissa on',
+      'itms':'tuotetta',
+      'cartTotal':'Ostoskori yhteensä',
 
     }
   }

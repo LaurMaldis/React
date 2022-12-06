@@ -39,7 +39,7 @@ function App() {
           <Nav className="me-auto">
             <Nav.Link as={Link} to='/admin'>{t('admin')}</Nav.Link>
             <Nav.Link as={Link} to='/shops'>{t('shops')}</Nav.Link>
-            <Nav.Link as={Link} to='/contact'>Kontakteeru meiega</Nav.Link>
+            <Nav.Link as={Link} to='/contact'>{t('contact-us')}</Nav.Link>
             <Nav.Link as={Link} to='/cart'>{t('cart')}</Nav.Link>
           </Nav>
           <div><img className='lang' onClick={() => changeLang('en')} src='../uk.jpg' alt='English flag' /></div>
