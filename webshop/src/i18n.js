@@ -37,6 +37,7 @@ const resources = {
       'inCart':'In the cart there is',
       'itms':'items',
       'cartTotal':'Cart total',
+      'toAddPro':'Add some products',
 
     }
   },
@@ -72,6 +73,7 @@ const resources = {
       'inCart':'Ostukorvis on',
       'itms':'eset',
       'cartTotal':'Ostukorvi kogusumma',
+      'toAddPro':'Tooteid lisama',
 
     }
   },
@@ -107,6 +109,7 @@ const resources = {
       'inCart':'Ostoskorissa on',
       'itms':'tuotetta',
       'cartTotal':'Ostoskori yhteensä',
+      'toAddPro':'Lisää tuote',
 
     }
   }

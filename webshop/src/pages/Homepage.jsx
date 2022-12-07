@@ -9,9 +9,18 @@ const Homepage = () => {
   const { t } = useTranslation();
 
 
-  const addToCart = (productsClicked) => {
+  const addToCart = (productClicked) => {
     let cartLS = localStorage.getItem('cart');
-    cartLS.push(productsClicked);
+    cartLS = JSON.parse(cartLS) || [];
+    const index = cartLS.findIndex(element => element.product.id === productClicked.id);
+    if (index >= 0 ) {
+      //kui on ostukorvis, suurenda kogust
+      cartLS[index].quantity = cartLS[index].quantity + 1;
+    } else {
+      //kui ei ole ostukorvis, lisa ta kõige lõppu kogusega 1
+      cartLS.push({'product': productClicked, 'quantity':1});
+    };
+    cartLS = JSON.stringify(cartLS);
     localStorage.setItem('cart', cartLS);
   };
 
@@ -58,7 +67,7 @@ const Homepage = () => {
 
       </Link>
 
-      <button onClick={addToCart}>{t('addtocart')}</button>
+      <button onClick={() => addToCart(element)}>{t('addtocart')}</button>
       
     
       

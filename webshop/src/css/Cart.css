@@ -1,0 +1,76 @@
+.product {
+    display:flex; /* vasakultparemale */
+    justify-content: space-between; /* Vaba ruumi jaotus */
+    margin: 0 10%; /* Tõuka eemale (esimene number ülevalt alt, teine vasakult paremalt */
+    border-bottom: 1px solid lightgray;  /* joone paksus, tüüp, värv */
+    padding: 10px 0;
+    align-items: center;
+}
+
+/*  */
+
+.image {
+    width: 100px;
+    height: 100px;
+}
+
+.name {
+    width: 200px;
+}
+
+.price {
+    width: 100px;
+}
+
+.quantity {
+    width: 130px;
+    display: flex;
+    justify-content: space-between;
+}
+
+.sum {
+    width: 100px;
+}
+
+.button {
+    width: 30px;
+    height: 30px;
+    cursor: pointer;
+}
+
+.button.remove {
+    width: 50px;
+    height: 50px;
+    
+}
+
+.button:hover{
+    opacity: 0.8;
+}
+
+.button:active{
+    padding: 1px;
+}
+
+.cart-top{
+    margin-left:10%;
+}
+
+.cart-bottom{
+    text-align: right;
+    margin-right: 10%;
+}
+
+@media screen and (max-width: 700px){
+    .image {
+        width:50px;
+        height: 50px;
+    }
+}
+
+@media screen and (max-width: 500px){
+    .image {
+        width:30px;
+        height: 30px;
+    }
+}

@@ -1,6 +1,7 @@
-//import ProductsFromFile from '../data/products.json'
 import { useState } from 'react';
 import { useTranslation } from 'react-i18next';
+import { Link } from 'react-router-dom';
+import '../css/Cart.css';
 
 const Cart = () => {
 
@@ -8,31 +9,42 @@ const Cart = () => {
   // Kuvage välja kõik ostukorvi esemed
   // a) peast   b) proovida mõne kodutöö järgi   c) eesti keelsest projektist vaadata
     const { t } = useTranslation();
-    const [ cartLS, newCart ]  = useState(localStorage.getItem('cart') || []);
-    //const [ products, shopsNew ] = useState(ProductsFromFile);
+    const [ cartLS, newCart ]  = useState(JSON.parse(localStorage.getItem('cart')) || []);
+  
 
   const removeFromCart = (index) => {
-    cartLS.splice(index,1);
+    cartLS.splice(index, 1);
     newCart(cartLS.slice());
-    localStorage.setItem('cart', cartLS);
+    localStorage.setItem('cart', JSON.stringify(cartLS));
   };
 
-  const addExtra = (productsClicked) => {
-    cartLS.push(productsClicked);
+  
+
+  const decreaseQuantity = (index) => {
+    cartLS[index].quantity = cartLS[index].quantity - 1;
+    if (cartLS[index].quantity === 0 ) {
+      removeFromCart(index);
+    };
     newCart(cartLS.slice());
-    localStorage.setItem('cart', cartLS);
+    localStorage.setItem('cart', JSON.stringify(cartLS));
+  };
+
+  const increaseQuantity = (index) => {
+    cartLS[index].quantity = cartLS[index].quantity + 1;
+    newCart(cartLS.slice());
+    localStorage.setItem('cart', JSON.stringify(cartLS));
   };
 
   const emptyCart = () => {
     newCart([]);
-    localStorage.setItem('cart', []);
+    localStorage.setItem('cart', JSON.stringify([]));
   };
 
 
   const calculateCartSum = () => {
     let cashout= 0;
-    cartLS.forEach(element => cashout = cashout + element.price);
-    return cashout;
+    cartLS.forEach(e => cashout = cashout + e.product.price * e.quantity);
+    return cashout.toFixed(2);
   };
 
 
@@ -41,26 +53,37 @@ const Cart = () => {
    
   return (
     <div>
-      <div>{t('cartTotal')}: {calculateCartSum()}€ </div>
-      
+
+      <div className='cart-top'>
         { cartLS.length > 0 && <button onClick={emptyCart}>{t('empty')}</button> }
-        { cartLS.length === 0 && <div>{t('cartIsEmpty')}</div> }
+        { cartLS.length === 0 && <div>{t('cartIsEmpty')} <Link to='/'>{t('toAddPro')}</Link></div> }
         { cartLS.length === 1 && <div>{t('cartOneProd')}</div> }   
         { cartLS.length > 1 && <div>{t('inCart')} {cartLS.length} {t('itms')}.</div> }
+      </div>
+
+
 
      
-         { cartLS.map((element, index) => 
-        <div key={index}>
+        { cartLS.map((element, index) => 
+        
+        <div className='product' key={index}>
+          <img className='image' src={element.product.image} alt='pic of product'></img>
+          <div className='name' >{element.product.name}</div>
+          <div className='price' >{element.product.price.toFixed(2)} €</div>
+        <div  className='quantity'>
+          <img className='button' onClick={() => decreaseQuantity(index)} src="/minus.png" alt="remove pic" />
+          <div>{element.quantity} tk</div>
+          <img className='button' onClick={() => increaseQuantity(index)} src="/plus.png" alt="add pic" />
+        </div>
+          <div className='sum' >{(element.product.price * element.quantity).toFixed(2)} €</div>
+          <img className='button remove' onClick={() => removeFromCart(index)} src="/bin.png" alt="bin pic" />
+        
+      </div> ) }
+      
+        <div className='cart-bottom'>
+          {t('cartTotal')}: {calculateCartSum()}€ 
+        </div>
 
-          <img src={element.image} alt='pic of product'></img>
-          <div>{element.name}</div>
-          <div>{element.price} €</div>
-          <div>{element.active + 0}</div>
-
-        <button onClick={() => removeFromCart(index)}>-</button>
-        <button onClick={() => addExtra(element)}>+</button>
-        </div> ) }
-  
     </div>
   )
 }
