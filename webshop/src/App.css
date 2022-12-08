@@ -11,3 +11,7 @@
 .lang:active{
   padding: 1px;
 };
+
+.leaflet-map {
+  height: 300px;
+};

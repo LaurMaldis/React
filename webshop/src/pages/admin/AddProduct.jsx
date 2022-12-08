@@ -27,11 +27,11 @@ const AddProduct = () => {
   
   const productAdd = () => {
     if (
-    idRef.current.value === '',
-    nameRef.current.value === '',
-    priceRef.current.value === '',
-    imageRef.current.value === '',
-    categoryRef.current.value === '',
+    idRef.current.value === '' ||
+    nameRef.current.value === '' ||
+    priceRef.current.value === '' ||
+    imageRef.current.value === '' ||
+    categoryRef.current.value === '' ||
     descriptionRef.current.value === ''
     ) {
       setMessage(<div>{t('fillall')}</div>) 

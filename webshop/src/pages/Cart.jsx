@@ -1,3 +1,4 @@
+import { useEffect } from 'react';
 import { useState } from 'react';
 import { useTranslation } from 'react-i18next';
 import { Link } from 'react-router-dom';
@@ -10,7 +11,13 @@ const Cart = () => {
   // a) peast   b) proovida mõne kodutöö järgi   c) eesti keelsest projektist vaadata
     const { t } = useTranslation();
     const [ cartLS, newCart ]  = useState(JSON.parse(localStorage.getItem('cart')) || []);
-  
+    const [parcelMachines, setParcelMachines] = useState([]);
+
+    useEffect(() => {
+      fetch('https://www.omniva.ee/locations.json')
+      .then(res => res.json())
+      .then(json => setParcelMachines(json));
+    }, []);
 
   const removeFromCart = (index) => {
     cartLS.splice(index, 1);
@@ -81,7 +88,12 @@ const Cart = () => {
       </div> ) }
       
         <div className='cart-bottom'>
-          {t('cartTotal')}: {calculateCartSum()}€ 
+          {t('cartTotal')}: {calculateCartSum()}€ <br />
+
+          <select>
+              {parcelMachines.filter(element => element.A0_NAME === 'EE')
+              .map(element => <option key={element.NAME}>{element.NAME}</option>)}
+          </select>
         </div>
 
     </div>

@@ -1,19 +1,30 @@
 import { Link } from 'react-router-dom';
-import { useState, useRef } from 'react';
-import ProductsFromFile from '../../data/products.json'
+import { useState, useRef, useEffect } from 'react';
 import { ToastContainer, toast } from 'react-toastify';
 import { useTranslation } from 'react-i18next';
 
 
 const MaintainProduct = () => {
-
-  const [ products, setProducts ] = useState(ProductsFromFile);
+  const [dbProducts, setDbProducts ] = useState([]);
+  const [ products, setProducts ] = useState([]);
   const {t} = useTranslation();
   const searchedRef = useRef();
+  const dbURL = 'https://webshop-11-22-default-rtdb.europe-west1.firebasedatabase.app/products.json';
+
+
+  useEffect( () => {
+    fetch(dbURL)
+    .then(res => res.json())
+    .then(json => 
+      {setProducts(json)
+      setDbProducts(json)
+      });
+  }, []);
+
 
   const remove = (i) => {
-    ProductsFromFile.splice(i, 1);
-    setProducts(ProductsFromFile.slice());
+    products.splice(i, 1);
+    setProducts(products.slice());
     toast.warn(t('successfully-deleted'), {
       position: "top-right",
       theme: "dark",
@@ -21,7 +32,7 @@ const MaintainProduct = () => {
   };
 
   const searchProducts = () => {
-    const result = ProductsFromFile.filter(element => 
+    const result = dbProducts.filter(element => 
       element.name.toLowerCase().includes(searchedRef.current.value.toLowerCase()));
     setProducts(result);
   };

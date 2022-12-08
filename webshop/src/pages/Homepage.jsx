@@ -1,12 +1,21 @@
-import ProductsFromFile from '../data/products.json'
-import { useState } from 'react';
+import { useEffect, useState } from 'react';
+import {Spinner} from 'react-bootstrap';
 import { Link } from 'react-router-dom';
 import { useTranslation } from 'react-i18next';
+// import ProductsFromFile from '../data/products.json'
 
 const Homepage = () => {
-  
-  const [ products, shopsNew ] = useState(ProductsFromFile);
+
   const { t } = useTranslation();
+  const [ products, setProducts ] = useState([]);
+  const dbURL='https://webshop-11-22-default-rtdb.europe-west1.firebasedatabase.app/products.json';
+
+
+  useEffect( () => {
+    fetch(dbURL)
+    .then(res => res.json())
+    .then(json => setProducts(json));
+  }, []);
 
 
   const addToCart = (productClicked) => {
@@ -26,27 +35,29 @@ const Homepage = () => {
 
   const AtoZ = () => {
       products.sort( (a,b) => a.name.localeCompare(b.name));
-      shopsNew(products.slice());  
+      setProducts(products.slice());  
   };
 
   const ZtoA = () => {
     products.sort( (a,b) => b.name.localeCompare(a.name));
-    shopsNew(products.slice());  
+    setProducts(products.slice());  
   }; 
 
   const priceAsc = () => {
     products.sort((a,b) => a.price - b.price);
     //shops.sort( (a,b) => a.price.localeCompare(b.price) );ˇei tööta siin
-    shopsNew(products.slice());
+    setProducts(products.slice());
   };
 
   const priceDesc = () => {
     products.sort((a,b) => b.price - a.price);
-    shopsNew(products.slice());
+    setProducts(products.slice());
   } 
 
   
-
+  if (products.lenght === 0 ) {
+    return (<Spinner />);
+  };
 
   return (
     <div>
