@@ -2,19 +2,25 @@ import { useEffect, useState } from 'react';
 import {Spinner} from 'react-bootstrap';
 import { Link } from 'react-router-dom';
 import { useTranslation } from 'react-i18next';
-// import ProductsFromFile from '../data/products.json'
+import config from "../data/config.json";
 
 const Homepage = () => {
 
   const { t } = useTranslation();
   const [ products, setProducts ] = useState([]);
-  const dbURL='https://webshop-11-22-default-rtdb.europe-west1.firebasedatabase.app/products.json';
-
+  const [ dbProducts, setDbProducts ] = useState([]);
+  const categories = [...new Set(dbProducts.map(element => element.category))]; //duublite eemaldamiseks
+  const [isLoading, setLoading] = useState(false);
 
   useEffect( () => {
-    fetch(dbURL)
+    setLoading(true)
+    fetch(config.productsDbUrl)
     .then(res => res.json())
-    .then(json => setProducts(json));
+    .then(json =>
+      {setProducts(json)
+      setDbProducts(json)
+      setLoading(false)
+      });
   }, []);
 
 
@@ -45,19 +51,25 @@ const Homepage = () => {
 
   const priceAsc = () => {
     products.sort((a,b) => a.price - b.price);
-    //shops.sort( (a,b) => a.price.localeCompare(b.price) );ˇei tööta siin
+    //products.sort( (a,b) => a.price.localeCompare(b.price) );ˇei tööta siin
     setProducts(products.slice());
   };
 
   const priceDesc = () => {
     products.sort((a,b) => b.price - a.price);
     setProducts(products.slice());
-  } 
+  };
 
-  
-  if (products.lenght === 0 ) {
+    const filterProducts = (categoryClicked) => {
+    const result = dbProducts.filter(element => element.category === categoryClicked);
+    setProducts(result);
+  };
+
+  if (isLoading) {
     return (<Spinner />);
   };
+
+
 
   return (
     <div>
@@ -65,9 +77,17 @@ const Homepage = () => {
     <button onClick={ZtoA}>{t('sortZA')}</button>
     <button onClick={priceAsc}>{t('priceascending')}</button>
     <button onClick={priceDesc}>{t('pricedescending')}</button>
+    <div>{products.length} tk</div>
+      
+      {/* <button onClick={() => {filterProducts('Samsung Cell Phones and Smartphones ')}}>Samsung Cell Phones and Smartphones </button>
+      <button onClick={() => {filterProducts('Cell phones')}}>Cell phones</button>
+      <button onClick={() => {filterProducts('Ebay')}}>Ebay</button> */}
 
-      
-      
+      { categories.map(element => 
+      <button key={element} onClick={() => filterProducts(element)}>{element}</button>
+      )};
+
+
       {products.map(element =>
       <div key={element.id}>
 

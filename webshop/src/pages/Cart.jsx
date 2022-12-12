@@ -87,14 +87,16 @@ const Cart = () => {
         
       </div> ) }
       
-        <div className='cart-bottom'>
-          {t('cartTotal')}: {calculateCartSum()}€ <br />
+      { cartLS.length > 0 &&
+          <div className='cart-bottom'>
+            <div>{t('cartTotal')}: {calculateCartSum()}€ </div><br />
 
-          <select>
-              {parcelMachines.filter(element => element.A0_NAME === 'EE')
-              .map(element => <option key={element.NAME}>{element.NAME}</option>)}
-          </select>
-        </div>
+            <select>
+                {parcelMachines
+                .filter(element => element.A0_NAME === 'EE')
+                .map(element => <option key={element.NAME}>{element.NAME}</option>)}
+            </select>
+        </div>}
 
     </div>
   )

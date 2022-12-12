@@ -1,21 +1,31 @@
 import { useParams } from "react-router-dom";
 import { useEffect, useState } from 'react';
+import {Spinner} from 'react-bootstrap';
+import config from "../data/config.json"
 
 const SingleProduct = () => {
 
   const {id} = useParams();
-  const [ products, setProducts ] = useState([]);
-  const productFound = products.find(element => element.id === Number(id));
-  const dbURL = 'https://webshop-11-22-default-rtdb.europe-west1.firebasedatabase.app/products.json';
+  const [ dbproducts, setDbProducts ] = useState([]);
+  const [isLoading, setLoading] = useState(false);
+  const productFound = dbproducts.find(element => element.id === Number(id));
+  
 
 
   useEffect( () => {
-    fetch(dbURL)
+    setLoading(true)
+    fetch(config.productsDbUrl)
     .then(res => res.json())
-    .then(json => setProducts(json));
+    .then(json =>     
+      {setDbProducts(json)
+      setLoading(false);
+      });
   }, []);
   
-  
+  if (isLoading === true) {
+    return (<Spinner /> );
+  }; 
+
   return (
     <div>
       {productFound !== undefined &&

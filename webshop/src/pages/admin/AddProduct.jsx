@@ -1,8 +1,8 @@
-import { useState } from "react";
-import { useRef } from "react";
-import ProductsFromFile from '../../data/products.json';
+import { useState, useRef, useEffect } from "react";
 import { useTranslation } from 'react-i18next';
-
+import { ToastContainer, toast } from 'react-toastify';
+import { Spinner } from 'react-bootstrap';
+import config from "../../data/config.json"
 // hookid   use algusega: useState, useRef, useParams, useNavigate, useTranslate
 // Reacti erikoodid, mida ei eksisteeri tavalises JavaScriptis, lihtsustab
 // Hooke tuleb alati importida
@@ -15,6 +15,17 @@ const AddProduct = () => {
   const { t } = useTranslation();
   const [idUnique, setIdUnique] = useState(true);
   const [ message, setMessage ] = useState();
+  const [ dbProducts, setDbProducts ] = useState([]);
+  const [isLoading, setLoading] = useState(false);
+ 
+  useEffect( () => {
+    fetch(config.productsDbUrl)
+    .then(res => res.json())
+    .then(json => {
+      setDbProducts(json)
+      setLoading(false)
+    });
+  }, []);
 
   const idRef = useRef();
   const nameRef = useRef();
@@ -23,7 +34,8 @@ const AddProduct = () => {
   const categoryRef = useRef();
   const descriptionRef = useRef();
   const activeRef = useRef();
-
+  //const productsDbUrl = 'https://webshop-11-22-default-rtdb.europe-west1.firebasedatabase.app/products.json';
+  
   
   const productAdd = () => {
     if (
@@ -37,7 +49,7 @@ const AddProduct = () => {
       setMessage(<div>{t('fillall')}</div>) 
     } else {
 
-    const updateProductinfo = {
+    const newProduct = {
       'id': Number(idRef.current.value), 
       'name': nameRef.current.value,
       'price': Number(priceRef.current.value),
@@ -46,13 +58,27 @@ const AddProduct = () => {
       'description': descriptionRef.current.value,
       'active': activeRef.current.checked
     };
-    ProductsFromFile.push(updateProductinfo);
-  
+    dbProducts.push(newProduct);
+    fetch(config.productsDbUrl, {'method': 'put', 'body': JSON.stringify(dbProducts)})
+      .then(() => {
+        idRef.current.value = '';
+        nameRef.current.value = '';
+        priceRef.current.value = '';
+        imageRef.current.value = '';
+        categoryRef.current.value = '';
+        descriptionRef.current.value = '';
+        activeRef.current.checked = false;
+        toast.success('successfully-added', {
+          position: "top-right",
+          theme: "dark",
+          });
+      });
+
   }};
 
   const checkIdUniqueness = () => {
     console.log(idRef.current.value);
-    const found = ProductsFromFile.find(element => element.id === Number(idRef.current.value));
+    const found = dbProducts.find(element => element.id === Number(idRef.current.value));
     if (found === undefined) {
       setIdUnique(true);
     } 
@@ -61,8 +87,13 @@ const AddProduct = () => {
     }
   };
 
+  if (isLoading === true) {
+    return (<Spinner /> );
+  };
+
   return (
     <div>
+      <ToastContainer />
       {idUnique === false  && <div>Kellelgi on sama ID!</div>}
 
     <div>{message}</div>
@@ -84,7 +115,7 @@ const AddProduct = () => {
       <button disabled={idUnique === false} onClick={productAdd}>{t('add')}</button>
     </div>
       
-      
+
     </div>
   )
 }

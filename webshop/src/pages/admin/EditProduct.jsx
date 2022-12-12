@@ -1,17 +1,19 @@
-import { useRef, useState } from 'react';
+import { useRef, useEffect, useState } from 'react';
 import  { useNavigate, useParams} from 'react-router-dom';
-import ProductsFromFile from '../../data/products.json'
-
 import { useTranslation } from 'react-i18next';
+import {Spinner} from 'react-bootstrap';
+import config from "../../data/config.json"
 
 const EditProduct = () => {
 
+  const [ dbProducts, setDbProducts ] = useState([]);
   const { t } = useTranslation();
-  const {id} = useParams();
-  const productFound = ProductsFromFile.find(element => element.id === Number(id));
-  const index = ProductsFromFile.indexOf(productFound);
+  const {id} = useParams(); 
+  const productFound = dbProducts.find(element => element.id === Number(id));
+  const index = dbProducts.indexOf(productFound);
   const [idUnique, setIdUnique] = useState(true);
- 
+  const [isLoading, setLoading] = useState(false);
+
   const idRef = useRef();
   const nameRef = useRef();
   const priceRef = useRef();
@@ -20,6 +22,17 @@ const EditProduct = () => {
   const descriptionRef = useRef();
   const activeRef = useRef();
   const navigate = useNavigate();
+ 
+
+  useEffect( () => {
+    setLoading(true)
+    fetch(config.productsDbUrl)
+    .then(res => res.json())
+    .then(json => 
+      {setDbProducts(json)
+      setLoading(false);
+      });
+  }, []);
 
   const changeProduct = () => {
     const updateProduct = {
@@ -31,8 +44,10 @@ const EditProduct = () => {
       'description': descriptionRef.current.value,
       'active': activeRef.current.checked
     };
-    ProductsFromFile[index] = updateProduct;
-    navigate('/admin/maintain-products');
+    dbProducts[index] = updateProduct;
+    fetch(config.productsDbUrl, {'method': 'put', 'body': JSON.stringify(dbProducts)})
+      .then( ()=> navigate('/admin/maintain-products'));
+    
   };
 
   const checkIdUniqueness = () => {
@@ -41,7 +56,7 @@ const EditProduct = () => {
       return; 
     } 
     
-    const found = ProductsFromFile.find(element => element.id === Number(idRef.current.value));
+    const found = dbProducts.find(element => element.id === Number(idRef.current.value));
     if (found === undefined) {
       setIdUnique(true);
     } 
@@ -49,6 +64,10 @@ const EditProduct = () => {
       setIdUnique(false);
     }
   };
+
+  if (isLoading === true) {
+    return (<Spinner /> );
+  }; 
 
   return (
     <div>
