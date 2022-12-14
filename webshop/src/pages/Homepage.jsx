@@ -85,7 +85,7 @@ const Homepage = () => {
 
       { categories.map(element => 
       <button key={element} onClick={() => filterProducts(element)}>{element}</button>
-      )};
+      )}
 
 
       {products.map(element =>

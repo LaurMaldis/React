@@ -4,6 +4,7 @@ import { ToastContainer, toast } from 'react-toastify';
 import { useTranslation } from 'react-i18next';
 import {Spinner} from 'react-bootstrap';
 import config from "../../data/config.json";
+import '../../css/MaintainProducts.css';
 
 const MaintainProduct = () => {
   const [dbProducts, setDbProducts ] = useState([]);
@@ -34,7 +35,7 @@ const MaintainProduct = () => {
       position: "top-right",
       theme: "dark",
       });
-      console.log(dbProducts)
+      //console.log(dbProducts)
       fetch(config.productsDbUrl, {'method': 'put', 'body': JSON.stringify(dbProducts)});
   };
 
@@ -56,7 +57,7 @@ const MaintainProduct = () => {
       <br />
 
       {products.map(element => 
-      <div key={element.id}> 
+      <div className={element.active === true ? "active-product" : undefined} key={element.id}> 
         <img src={element.image} alt='product'></img>
         <div>{element.name}</div>   
         <div>{element.price}€</div>

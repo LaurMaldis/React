@@ -1,7 +1,6 @@
 import { useState, useRef, useEffect } from "react";
 import { useTranslation } from 'react-i18next';
 import { ToastContainer, toast } from 'react-toastify';
-import { Spinner } from 'react-bootstrap';
 import config from "../../data/config.json"
 // hookid   use algusega: useState, useRef, useParams, useNavigate, useTranslate
 // Reacti erikoodid, mida ei eksisteeri tavalises JavaScriptis, lihtsustab
@@ -14,17 +13,21 @@ const AddProduct = () => {
 
   const { t } = useTranslation();
   const [idUnique, setIdUnique] = useState(true);
-  const [ message, setMessage ] = useState();
   const [ dbProducts, setDbProducts ] = useState([]);
-  const [isLoading, setLoading] = useState(false);
+  const [categories, setCategories ] = useState([]);
+
+  
  
   useEffect( () => {
+    fetch(config.categoriesDbUrl)
+    .then(res=> res.json())
+    .then(json => setCategories(json || [] ));
+    
     fetch(config.productsDbUrl)
     .then(res => res.json())
-    .then(json => {
-      setDbProducts(json)
-      setLoading(false)
-    });
+    .then(json => setDbProducts(json || []));
+
+
   }, []);
 
   const idRef = useRef();
@@ -37,17 +40,56 @@ const AddProduct = () => {
   //const productsDbUrl = 'https://webshop-11-22-default-rtdb.europe-west1.firebasedatabase.app/products.json';
   
   
-  const productAdd = () => {
-    if (
-    idRef.current.value === '' ||
-    nameRef.current.value === '' ||
-    priceRef.current.value === '' ||
-    imageRef.current.value === '' ||
-    categoryRef.current.value === '' ||
-    descriptionRef.current.value === ''
-    ) {
-      setMessage(<div>{t('fillall')}</div>) 
-    } else {
+  // const productAdd = () => {
+  //   if (
+  //   idRef.current.value === '' ||
+  //   nameRef.current.value === '' ||  <---- või järgmine 
+  //   priceRef.current.value === '' ||
+  //   imageRef.current.value === '' ||
+  //   descriptionRef.current.value === ''
+  //   ) {
+  //     toast.error(t('fillall'), {
+  //       position: "top-right",
+  //       theme: "dark",
+  //       });
+  //   } else {
+
+
+    const productAdd = () => {
+    if (idRef.current.value === "") {
+      toast.error("Id lisamata");
+      return;    // return lõpetab funktsiooni
+    }
+    if (nameRef.current.value === "") {
+      toast.error("Nimi lisamata");
+      return;
+    }
+      // /^[A-ZÜÕÖÄ]+/
+    if (/^[A-ZÜÕÖÄ].*/.test(nameRef.current.value) === false) {
+      toast.error("Nimi peab algama suure tähega!");
+        return;
+    }
+    if (priceRef.current.value === "") {
+      toast.error("Hind lisamata");
+      return;
+    }
+
+    if (imageRef.current.value === "") {
+      toast.error("Pilt lisamata");
+      return;
+    }
+    if (/^\S*$/.test(imageRef.current.value) === false) {
+      toast.error("Pildi aadressis on tühik");
+      return;
+    }
+    if (descriptionRef.current.value === "") {
+      toast.error("Kirjeldus lisamata");
+      return;
+    }
+
+  
+
+
 
     const newProduct = {
       'id': Number(idRef.current.value), 
@@ -58,8 +100,9 @@ const AddProduct = () => {
       'description': descriptionRef.current.value,
       'active': activeRef.current.checked
     };
+
     dbProducts.push(newProduct);
-    fetch(config.productsDbUrl, {'method': 'put', 'body': JSON.stringify(dbProducts)})
+    fetch(config.productsDbUrl, {'method': 'PUT', 'body': JSON.stringify(dbProducts)})
       .then(() => {
         idRef.current.value = '';
         nameRef.current.value = '';
@@ -73,11 +116,10 @@ const AddProduct = () => {
           theme: "dark",
           });
       });
-
-  }};
+  };
+  
 
   const checkIdUniqueness = () => {
-    console.log(idRef.current.value);
     const found = dbProducts.find(element => element.id === Number(idRef.current.value));
     if (found === undefined) {
       setIdUnique(true);
@@ -87,16 +129,12 @@ const AddProduct = () => {
     }
   };
 
-  if (isLoading === true) {
-    return (<Spinner /> );
-  };
 
   return (
     <div>
       <ToastContainer />
       {idUnique === false  && <div>Kellelgi on sama ID!</div>}
 
-    <div>{message}</div>
       <div>
       <label>ID</label><br />
       <input ref={idRef} onChange={checkIdUniqueness} type="number" /> <br />
@@ -107,7 +145,10 @@ const AddProduct = () => {
       <label>{t('immg')}</label><br />
       <input ref={imageRef} type="text" /> <br />
       <label>{t('category')}</label><br />
-      <input ref={categoryRef} type="text" /> <br />
+      {/* <input ref={categoryRef} type="text" /> <br /> */}
+      <select ref={categoryRef}>
+        {categories.map(element => <option key={element.name}>{element.name}</option>)}
+      </select><br />
       <label>{t('description')}</label><br />
       <input ref={descriptionRef} type="text" /> <br />
       <label>{t('active')}</label><br />
