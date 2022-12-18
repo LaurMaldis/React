@@ -9,6 +9,8 @@ import Lisauudis from './pages/Lisauudis';
 import HaldaUudised from './pages/HaldaUudised';
 import YksUudis from './pages/YksUudis';
 import MuudaUudis from './pages/MuudaUudis';
+import KasutajaPostitus from './pages/KasutajaPostitus';
+import YksPostitus from './pages/YksPostitus';
 
 function App() {
   return (
@@ -47,6 +49,8 @@ function App() {
         <Route path='HaldaUudised' element={ <HaldaUudised /> }/>
         <Route path='/YksUudis/:i' element={ <YksUudis /> }/>
         <Route path='/MuudaUudis/:i' element={ <MuudaUudis /> }/>
+        <Route path='/KasutajaPostitus/:kasutajaId' element={ <KasutajaPostitus /> }/>
+        <Route path='/Vaata-postitus/:PostituseId' element={ <YksPostitus /> }/>
       </Routes>
     </div>
   );

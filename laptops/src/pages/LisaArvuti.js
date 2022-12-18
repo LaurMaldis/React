@@ -6,10 +6,8 @@ function LisaArvuti () {
     const mudelRef = useRef();
     const maskumusRef = useRef();
 
-    function addProduct(){
-        setMesssage('Arvuti lisatud!');
-    };
-
+    function addProduct() {
+        
         let margid = localStorage.getItem('margid');
         margid = JSON.parse(margid) || [];
         margid.push(markRef.current.value);
@@ -27,7 +25,9 @@ function LisaArvuti () {
         maskumus.push(maskumusRef.current.value);
         maskumus = JSON.stringify(maskumus);
         localStorage.setItem('maskumus', maskumus);
-
+        
+        setMesssage('Arvuti lisatud!');
+    };
 
     return ( 
         <div>

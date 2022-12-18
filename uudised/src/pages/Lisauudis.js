@@ -10,8 +10,7 @@ function Lisauudis() {
         uudised.push(uudisRef.current.value); 
         uudised = JSON.stringify(uudised);
         localStorage.setItem('uudised', uudised);  
-
-    }
+    };
 
     return ( 
     <div>
