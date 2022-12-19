@@ -1,118 +1,16 @@
 import i18n from "i18next";
 import { initReactI18next } from "react-i18next";
+import english from "./i18n/english.json"
+import estonian from "./i18n/estonian.json"
+import finnish from "./i18n/finnish.json"
 
 // the translations
 // (tip move them in a JSON file and import them,
 // or even better, manage them separated from your code: https://react.i18next.com/guides/multiple-translation-files)
 const resources = {
-  en: {
-    translation: {
-      "admin": "To admin view",
-      "shops": "Our shops",
-      "cart": "Cart",
-      'add-product': 'Add-product',
-      'maintain-products':'Maintain-products',
-      'maintain-categories':'Maintain-categories',
-      'maintain-shops':'Maintain-shops',
-      'successfully-deleted':'Product successfully deleted',
-      'product-not-found':'Product was not found',
-      'name':'Name',
-      'price':'Price',
-      'immg':'Image',
-      'category':'Category',
-      'description':'Description',
-      'active':'Active',
-      'change':'Change',
-      'sortAZ':'Sort A-Z',
-      'sortZA':'Sort Z-A',
-      'priceascending':'Sort price ascending',
-      'pricedescending':'Sort price descending',
-      'addtocart':'Add to cart',
-      'add':'Add',
-      'fillall':'Fill all the gaps!',
-      'contact-us':'Contact us',
-      'empty':'Empty',
-      'cartIsEmpty':'Cart is empty.',
-      'cartOneProd':'There is one item in the cart.',
-      'inCart':'In the cart there is',
-      'itms':'items',
-      'cartTotal':'Cart total',
-      'toAddPro':'Add some products',
-
-    }
-  },
-  ee: {
-    translation: {
-      "admin": "Admini vaatesse",
-      "shops": "Meie poed",
-      "cart": "Ostukorvi",
-      'add-product': 'Lisa tooteid',
-      'maintain-products':'Halda tooteid',
-      'maintain-categories':'Halda kategooriaid',
-      'maintain-shops':'Halda poode',
-      'successfully-deleted':'Toode edukalt eemaldatud',
-      'product-not-found':'Toodet ei leitud',
-      'name':'Nimi',
-      'price':'Hind',
-      'immg':'Pilt',
-      'category':'Kategooria',
-      'description':'Kirjeldus',
-      'active':'Aktiivsus',
-      'change':'Muuda',
-      'sortAZ':'Sorteeri A-Z',
-      'sortZA':'Sorteeri Z-A',
-      'priceascending':'Sorteeri hinna järgi kasvavalt',
-      'pricedescending':'Sorteeri hinna järgi kahanevalt',
-      'addtocart':'Lisa ostukorvi',
-      'add':'Lisa',
-      'fillall':'Täida kõik lüngad!',
-      'contact-us':'Kontakteeru meiega',
-      'empty':'Tühjenda',
-      'cartIsEmpty':'Ostukorv on tühi.',
-      'cartOneProd':'Ostukorvis on 1 ese.',
-      'inCart':'Ostukorvis on',
-      'itms':'eset',
-      'cartTotal':'Ostukorvi kogusumma',
-      'toAddPro':'Tooteid lisama',
-
-    }
-  },
-  fi:{
-    translation: {
-      "admin": "Hallonnon kannalta",
-      "shops": "Myymälämme",
-      "cart": "Ostoskärry",
-      'add-product': 'Lisää tuotteet',
-      'maintain-products':'Hallitse tuotteita:',
-      'maintain-categories':'Hallita luokkaa',
-      'maintain-shops':'Hallita kauppoja',
-      'successfully-deleted':'Tuote on poistettu onnistuneesti',
-      'product-not-found':'Tuotetta ei löytynyt',
-      'name':'Nimi',
-      'price':'Hinta',
-      'immg':'Kuva',
-      'category':'Kategoria',
-      'description':'Kuvaus',
-      'active':'Toiminta',
-      'change':'Muuttaa',
-      'sortAZ':'Järjestellä A-Z',
-      'sortZA':'Järjestellä Z-A',
-      'priceascending':'Halvempi ennen',
-      'pricedescending':'Kalliimpi ennen',
-      'addtocart':'Lisää ostoskoriin',
-      'add':'Lisaa',
-      'fillall':'Täytä kaikki aukot!',
-      'contact-us':'Ota meihin yhteyttä',
-      'empty':'Tyhjä',
-      'cartIsEmpty':'Ostoskori on tyhjä.',
-      'cartOneProd':'Ostukorvis on 1 ese.',
-      'inCart':'Ostoskorissa on',
-      'itms':'tuotetta',
-      'cartTotal':'Ostoskori yhteensä',
-      'toAddPro':'Lisää tuote',
-
-    }
-  }
+  en: english,
+  ee: estonian,
+  fi: finnish
 };
 
 i18n

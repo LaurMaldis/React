@@ -1,16 +1,17 @@
 import { useEffect, useState } from 'react';
 import {Spinner} from 'react-bootstrap';
-import { Link } from 'react-router-dom';
-import { useTranslation } from 'react-i18next';
 import config from "../data/config.json";
+import "../css/Homepage.css"
+import SortButtons from '../components/home/SortButtons';
+import Product from '../components/home/Product';
 
 const Homepage = () => {
 
-  const { t } = useTranslation();
   const [ products, setProducts ] = useState([]);
   const [ dbProducts, setDbProducts ] = useState([]);
   const categories = [...new Set(dbProducts.map(element => element.category))]; //duublite eemaldamiseks
   const [isLoading, setLoading] = useState(false);
+  const [activeCategory, setActiveCategory ] = useState("");
 
   useEffect( () => {
     setLoading(true)
@@ -23,45 +24,9 @@ const Homepage = () => {
       });
   }, []);
 
-
-  const addToCart = (productClicked) => {
-    let cartLS = localStorage.getItem('cart');
-    cartLS = JSON.parse(cartLS) || [];
-    const index = cartLS.findIndex(element => element.product.id === productClicked.id);
-    if (index >= 0 ) {
-      //kui on ostukorvis, suurenda kogust
-      cartLS[index].quantity = cartLS[index].quantity + 1;
-    } else {
-      //kui ei ole ostukorvis, lisa ta kõige lõppu kogusega 1
-      cartLS.push({'product': productClicked, 'quantity':1});
-    };
-    cartLS = JSON.stringify(cartLS);
-    localStorage.setItem('cart', cartLS);
-  };
-
-  const AtoZ = () => {
-      products.sort( (a,b) => a.name.localeCompare(b.name));
-      setProducts(products.slice());  
-  };
-
-  const ZtoA = () => {
-    products.sort( (a,b) => b.name.localeCompare(a.name));
-    setProducts(products.slice());  
-  }; 
-
-  const priceAsc = () => {
-    products.sort((a,b) => a.price - b.price);
-    //products.sort( (a,b) => a.price.localeCompare(b.price) );ˇei tööta siin
-    setProducts(products.slice());
-  };
-
-  const priceDesc = () => {
-    products.sort((a,b) => b.price - a.price);
-    setProducts(products.slice());
-  };
-
     const filterProducts = (categoryClicked) => {
     const result = dbProducts.filter(element => element.category === categoryClicked);
+    setActiveCategory(categoryClicked);
     setProducts(result);
   };
 
@@ -69,14 +34,12 @@ const Homepage = () => {
     return (<Spinner />);
   };
 
-
-
   return (
     <div>
-    <button onClick={AtoZ}>{t('sortAZ')}</button>
-    <button onClick={ZtoA}>{t('sortZA')}</button>
-    <button onClick={priceAsc}>{t('priceascending')}</button>
-    <button onClick={priceDesc}>{t('pricedescending')}</button>
+      {/* Teise faili pean faili enda funktsiooni props lisama sulgude sisse ja igalpool funktsiooni ette panema props */}
+      <SortButtons
+      products={products}
+      setProducts={setProducts} /> 
     <div>{products.length} tk</div>
       
       {/* <button onClick={() => {filterProducts('Samsung Cell Phones and Smartphones ')}}>Samsung Cell Phones and Smartphones </button>
@@ -84,25 +47,13 @@ const Homepage = () => {
       <button onClick={() => {filterProducts('Ebay')}}>Ebay</button> */}
 
       { categories.map(element => 
-      <button key={element} onClick={() => filterProducts(element)}>{element}</button>
+      <button key={element} className={element === activeCategory ? "active-category" : undefined} onClick={() => filterProducts(element)}>{element}</button>
       )}
 
-
-      {products.map(element =>
-      <div key={element.id}>
-
-      <Link to={'/Product/' + element.id}>
-        <img src={element.image} alt='product'></img>
-        <div>{element.name}</div>    
-        <div>{element.price}€</div>
-
-      </Link>
-
-      <button onClick={() => addToCart(element)}>{t('addtocart')}</button>
+      { products.map(element => 
+        <Product key={element.id} element={element} />
+      )}
       
-    
-      
-      </div>)}
         
   
     </div> 

@@ -33,11 +33,11 @@ function LisaArvuti () {
         <div>
             <div>Sõnum: {message}</div>
             <label>Mark</label> <br />
-            <input type="text" /> <br />
+            <input ref={markRef} type="text" /> <br />
             <label>Mudel</label> <br />
-            <input type="text" /> <br />
+            <input ref={mudelRef} type="text" /> <br />
             <label>Maksumus</label> <br />
-            <input type="number" /> <br />
+            <input ref={maskumusRef} type="number" /> <br />
            { message === 'Lisa arvuti!' && <button onClick={() => addProduct()}>Sisesta</button>}
 
         </div>

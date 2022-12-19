@@ -5,6 +5,15 @@ import { useTranslation } from 'react-i18next';
 import {Spinner} from 'react-bootstrap';
 import config from "../../data/config.json";
 import '../../css/MaintainProducts.css';
+// kui css faili nimi oleks MaintainProducts.module.css siis
+//import styles from "../../css/MaintainProducts.module.css"
+//igalpool className={styles.image} või mis iganes on nimi
+//         className={styles["cart-top"]} kui sidekriips nimes 
+//         classname={styles.cart__top} või topelt alakriips
+//       viimases peab muutma CSS files ka nime alakriipsudega
+// kui mitu panna siis 
+//         className={`${styles.button} ${styles.remove}`} 
+// SEda saab ainult kasutada failis kus importisid seda
 
 const MaintainProduct = () => {
   const [dbProducts, setDbProducts ] = useState([]);
@@ -45,6 +54,13 @@ const MaintainProduct = () => {
     setProducts(result);
   };
 
+  const changeProductActiveness = (productClicked) => {
+    const index = dbProducts.findIndex(element => element.id === productClicked.id);
+    dbProducts[index].active = !dbProducts[index].active; // nii saab muuta ühte väärtust vastupidiseks (võrduse taga on et muuda vastupidiseks)
+    searchProducts();
+    fetch(config.productsDbUrl, {"METHOD": "PUT", "BODY": JSON.stringify(dbProducts)});
+  };
+
   if (isLoading === true) {
     return (<Spinner /> );
   };
@@ -57,13 +73,15 @@ const MaintainProduct = () => {
       <br />
 
       {products.map(element => 
-      <div className={element.active === true ? "active-product" : undefined} key={element.id}> 
-        <img src={element.image} alt='product'></img>
-        <div>{element.name}</div>   
-        <div>{element.price}€</div>
-        <div>{element.id}</div>
-        <div>{element.description}</div>
-        <div>{element.category}</div>
+      <div className={element.active === true ? "active-product" : "inactive-product"} key={element.id}> 
+        <div onClick={() => changeProductActiveness(element)}>
+          <img src={element.image} alt='product'></img>
+          <div>{element.name}</div>   
+          <div>{element.price}€</div>
+          <div>{element.id}</div>
+          <div>{element.description}</div>
+          <div>{element.category}</div>
+        </div>
         <button onClick={() => remove(element)}>x</button>
         <Link to={'/admin/edit-product/' + element.id}>
         <button>{t('change')}</button> 
@@ -73,6 +91,6 @@ const MaintainProduct = () => {
       
     </div>
   )
-}
+};
 
 export default MaintainProduct

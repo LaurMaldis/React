@@ -1,3 +1,11 @@
 .active-product {
     border: 1px solid green;
+    margin: 5px;
+    background-color: rgb(233, 255, 234);
   }
+
+.inactive-product{
+  border: 1px solid red;
+  margin: 5px;
+  background-color: rgb(255, 231, 231);
+}
