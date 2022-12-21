@@ -1,9 +1,11 @@
+import { useContext } from 'react';
 import { Link } from 'react-router-dom';
 import { useTranslation } from 'react-i18next';
-
 import React from 'react'
+import CartSumContext from '../../store/CartSumContext';
 
 const Product = (props) => {
+    const cartSumCtx = useContext(CartSumContext);
     const { t } = useTranslation();
 
     const addToCart = (productClicked) => {
@@ -17,8 +19,14 @@ const Product = (props) => {
           //kui ei ole ostukorvis, lisa ta kõige lõppu kogusega 1
           cartLS.push({'product': productClicked, 'quantity':1});
         };
+
+        let cartSum = 0;
+        cartLS.forEach(e => cartSum = cartSum + e.product.price * e.quantity);
+        cartSumCtx.setCartSum(cartSum.toFixed(2));
+
         cartLS = JSON.stringify(cartLS);
         localStorage.setItem('cart', cartLS);
+
       };
 
   return (

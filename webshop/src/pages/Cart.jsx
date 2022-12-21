@@ -1,10 +1,11 @@
 
-import { useState } from 'react';
+import { useState, useContext  } from 'react';
 import { useTranslation } from 'react-i18next';
 import { Link } from 'react-router-dom';
 import '../css/Cart.css';
 import ParcelMachines from "../components/cart/ParcelMachines";
 import Payment from  "../components/cart/Payment"
+import CartSumContext from '../store/CartSumContext';
 
 const Cart = () => {
 
@@ -12,8 +13,8 @@ const Cart = () => {
   // Kuvage välja kõik ostukorvi esemed
   // a) peast   b) proovida mõne kodutöö järgi   c) eesti keelsest projektist vaadata
     const { t } = useTranslation();
-    const [ cartLS, newCart ]  = useState(JSON.parse(localStorage.getItem('cart')) || []);
-    
+    const [ cartLS, newCart ] = useState(JSON.parse(localStorage.getItem('cart')) || []);
+    const cartSumCtx = useContext(CartSumContext);
 
 
 
@@ -21,6 +22,7 @@ const Cart = () => {
     cartLS.splice(index, 1);
     newCart(cartLS.slice());
     localStorage.setItem('cart', JSON.stringify(cartLS));
+    cartSumCtx.setCartSum(calculateCartSum());
   };
 
   
@@ -31,18 +33,21 @@ const Cart = () => {
       removeFromCart(index);
     };
     newCart(cartLS.slice());
-    localStorage.setItem('cart', JSON.stringify(cartLS));
+    localStorage.setItem('cart', JSON.stringify(cartLS)); 
+    cartSumCtx.setCartSum(calculateCartSum());
   };
 
   const increaseQuantity = (index) => {
     cartLS[index].quantity = cartLS[index].quantity + 1;
     newCart(cartLS.slice());
     localStorage.setItem('cart', JSON.stringify(cartLS));
+    cartSumCtx.setCartSum(calculateCartSum());
   };
 
   const emptyCart = () => {
     newCart([]);
     localStorage.setItem('cart', JSON.stringify([]));
+    cartSumCtx.setCartSum("0.00");
   };
 
 

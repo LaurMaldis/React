@@ -5,6 +5,7 @@ import "../css/Homepage.css"
 import SortButtons from '../components/home/SortButtons';
 import Product from '../components/home/Product';
 
+
 const Homepage = () => {
 
   const [ products, setProducts ] = useState([]);
@@ -16,12 +17,12 @@ const Homepage = () => {
   useEffect( () => {
     setLoading(true)
     fetch(config.productsDbUrl)
-    .then(res => res.json())
-    .then(json =>
-      {setProducts(json)
-      setDbProducts(json)
-      setLoading(false)
-      });
+      .then(res => res.json())
+      .then(json =>
+        {setProducts(json)
+        setDbProducts(json)
+        setLoading(false)
+        });
   }, []);
 
     const filterProducts = (categoryClicked) => {
