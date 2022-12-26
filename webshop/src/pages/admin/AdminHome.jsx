@@ -20,6 +20,9 @@ const AdminHome = () => {
      <Link to='/admin/maintain-shops'>
      <Button>{t('maintain-shops')}</Button>
      </Link>
+     <Link to='/admin/maintain-images'>
+     <Button>Maintain Images</Button>
+     </Link>
     
     
     

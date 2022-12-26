@@ -2,7 +2,10 @@
 import { useState, useRef, useEffect } from "react";
 import { useTranslation } from 'react-i18next';
 import { ToastContainer, toast } from 'react-toastify';
+import FileUpload from "../../components/FileUpload";
 import config from "../../data/config.json"
+import ToggleButton from 'react-bootstrap/ToggleButton';
+import ToggleButtonGroup from 'react-bootstrap/ToggleButtonGroup';
 // hookid   use algusega: useState, useRef, useParams, useNavigate, useTranslate
 // Reacti erikoodid, mida ei eksisteeri tavalises JavaScriptis, lihtsustab
 // Hooke tuleb alati importida
@@ -16,6 +19,8 @@ const AddProduct = () => {
   const [idUnique, setIdUnique] = useState(true);
   const [ dbProducts, setDbProducts ] = useState([]);
   const [categories, setCategories ] = useState([]);
+  const [imageUrl, setImageUrl ] = useState("");
+  const [isPictureUrl, setPictureUrl] = useState(true);
 
   
  
@@ -75,11 +80,16 @@ const AddProduct = () => {
       return;
     }
 
-    if (imageRef.current.value === "") {
+    if (isPictureUrl === false && imageUrl === "") {
+      toast.error("Pilt üles laadimata");
+      return;
+    }
+
+    if (isPictureUrl === true && imageRef.current.value === "") {
       toast.error("Pilt lisamata");
       return;
     }
-    if (/^\S*$/.test(imageRef.current.value) === false) {
+    if (isPictureUrl === true && /^\S*$/.test(imageRef.current.value) === false) {
       toast.error("Pildi aadressis on tühik");
       return;
     }
@@ -96,7 +106,7 @@ const AddProduct = () => {
       'id': Number(idRef.current.value), 
       'name': nameRef.current.value,
       'price': Number(priceRef.current.value),
-      'image': imageRef.current.value,
+      'image': isPictureUrl === true ? imageRef.current.value : imageUrl,
       'category': categoryRef.current.value,
       'description': descriptionRef.current.value,
       'active': activeRef.current.checked
@@ -108,7 +118,8 @@ const AddProduct = () => {
         idRef.current.value = '';
         nameRef.current.value = '';
         priceRef.current.value = '';
-        imageRef.current.value = '';
+        setImageUrl("");
+        // imageRef.current.value = '';
         categoryRef.current.value = '';
         descriptionRef.current.value = '';
         activeRef.current.checked = false;
@@ -129,6 +140,8 @@ const AddProduct = () => {
       setIdUnique(false);
     }
   };
+  
+
 
 
   return (
@@ -144,7 +157,19 @@ const AddProduct = () => {
       <label>{t('price')}</label><br />
       <input ref={priceRef} type="number" /> <br />
       <label>{t('immg')}</label><br />
-      <input ref={imageRef} type="text" /> <br />
+      
+      <ToggleButtonGroup type="radio" name="options" defaultValue={1}>
+        <ToggleButton id="tbg-radio-1" value={1} onClick={() => setPictureUrl(true)}>
+        Pilt URL-ina
+        </ToggleButton>
+        <ToggleButton id="tbg-radio-2" value={2} onClick={() => setPictureUrl(false)}>
+        Lae pilt üles
+        </ToggleButton>
+      </ToggleButtonGroup> <br />
+      {isPictureUrl === true && <input ref={imageRef} type="text" />} <br /> 
+      {isPictureUrl === false && <FileUpload onSendPictureUrl={setImageUrl} />}
+      
+
       <label>{t('category')}</label><br />
       {/* <input ref={categoryRef} type="text" /> <br /> */}
       <select ref={categoryRef}>

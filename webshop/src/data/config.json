@@ -1,4 +1,6 @@
 {
     "productsDbUrl": "https://webshop-11-22-default-rtdb.europe-west1.firebasedatabase.app/products.json",
-    "categoriesDbUrl": "https://webshop-11-22-default-rtdb.europe-west1.firebasedatabase.app/categories.json"
+    "categoriesDbUrl": "https://webshop-11-22-default-rtdb.europe-west1.firebasedatabase.app/categories.json",
+    "shopsDbUrl": "https://webshop-11-22-default-rtdb.europe-west1.firebasedatabase.app/shops.json",
+    "imagesDbUrl": "https://webshop-11-22-default-rtdb.europe-west1.firebasedatabase.app/images.json"
 }

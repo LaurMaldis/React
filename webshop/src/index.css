@@ -15,3 +15,8 @@ code {
 .white{
   color: white;
 }
+
+.carousel {
+  width: 500px;
+  margin: auto;
+}

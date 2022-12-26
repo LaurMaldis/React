@@ -4,6 +4,7 @@ import config from "../data/config.json";
 import "../css/Homepage.css"
 import SortButtons from '../components/home/SortButtons';
 import Product from '../components/home/Product';
+import CarouselGallery from '../components/home/CarouselGallery';
 
 
 const Homepage = () => {
@@ -37,6 +38,8 @@ const Homepage = () => {
 
   return (
     <div>
+      <CarouselGallery />
+
       {/* Teise faili pean faili enda funktsiooni props lisama sulgude sisse ja igalpool funktsiooni ette panema props */}
       <SortButtons
       products={products}

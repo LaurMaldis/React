@@ -17,6 +17,7 @@ import NavigationBar from './components/NavigationBar';
 import Login from './pages/Login';
 import Signup from './pages/Signup';
 import AuthContext from './store/AuthContext';
+import MaintainImages from './pages/admin/MaintainImages';
 
 
 function App() {
@@ -32,16 +33,19 @@ function App() {
       <Routes>
         <Route path='' element={ <Homepage /> }/>
         <Route path='cart' element={ <Cart /> }/>
+        {/* Kui tahad urli tõlkida siis impordin translate ja path={t("url.cart")} ja igalpool kus link aktiivne, 
+                                                    sinna läheb to={"/"+ t("url.cart")}                            */}
         <Route path='shops' element={ <Shops /> }/>
         <Route path='product/:id' element={ <SingleProduct /> }/>
         <Route path='contact' element={ <ContactUs /> }/>
-        <Route path='login' element={ <Login /> }/>
-        <Route path='signup' element={ <Signup /> }/>
+
         {/* kodus nendele mitte ligi pääsemine kui oled sisse loginud  */}
 
         { authCtx.loggedIn === false && 
         <>
           <Route path='admin/*' element={<Navigate to="login" />}/> 
+          <Route path='login' element={ <Login /> }/>
+          <Route path='signup' element={ <Signup /> }/>
         </>}
 
         { authCtx.loggedIn === true && 
@@ -52,6 +56,7 @@ function App() {
           <Route path='admin/maintain-categories' element={ <MaintainCategories /> }/>
           <Route path='admin/maintain-shops' element={ <MaintainShops /> }/>
           <Route path='admin/maintain-products' element={ <MaintainProduct /> }/>
+          <Route path='admin/maintain-images' element={ <MaintainImages /> }/>
         </>}
 
         

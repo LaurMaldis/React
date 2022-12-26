@@ -1,8 +1,10 @@
 {
     "translation": {
-      "admin": "Admini vaatesse",
-      "shops": "Meie poed",
-      "cart": "Ostukorvi",
+      "nav":{
+        "admin": "Admini vaatesse",
+        "shops": "Meie poed",
+        "cart": "Ostukorvi"
+      },
       "add-product": "Lisa tooteid",
       "maintain-products":"Halda tooteid",
       "maintain-categories":"Halda kategooriaid",

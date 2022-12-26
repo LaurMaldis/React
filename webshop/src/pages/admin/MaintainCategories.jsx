@@ -8,7 +8,6 @@ const MaintainCategories = () => {
   const [categories, setCategories ] = useState([]);
   const categoryRef = useRef();
 
-
   useEffect(() => {
     setLoading(true);
     fetch(config.categoriesDbUrl)

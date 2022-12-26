@@ -1,8 +1,10 @@
 {
     "translation": {
-      "admin": "Hallonnon kannalta",
-      "shops": "Myymälämme",
-      "cart": "Ostoskärry",
+      "nav":{
+        "admin": "Hallonnon kannalta",
+        "shops": "Myymälämme",
+        "cart": "Ostoskärry"
+      },
       "add-product": "Lisää tuotteet",
       "maintain-products":"Hallitse tuotteita:",
       "maintain-categories":"Hallita luokkaa",
