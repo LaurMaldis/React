@@ -6,6 +6,7 @@ import '../css/Cart.css';
 import ParcelMachines from "../components/cart/ParcelMachines";
 import Payment from  "../components/cart/Payment"
 import CartSumContext from '../store/CartSumContext';
+import OrderEmail from '../components/cart/OrderEmail';
 
 const Cart = () => {
 
@@ -13,34 +14,34 @@ const Cart = () => {
   // Kuvage välja kõik ostukorvi esemed
   // a) peast   b) proovida mõne kodutöö järgi   c) eesti keelsest projektist vaadata
     const { t } = useTranslation();
-    const [ cartLS, newCart ] = useState(JSON.parse(localStorage.getItem('cart')) || []);
+    const [ cart, newCart ] = useState(JSON.parse(localStorage.getItem('cart')) || []);
     const cartSumCtx = useContext(CartSumContext);
 
 
 
   const removeFromCart = (index) => {
-    cartLS.splice(index, 1);
-    newCart(cartLS.slice());
-    localStorage.setItem('cart', JSON.stringify(cartLS));
+    cart.splice(index, 1);
+    newCart(cart.slice());
+    localStorage.setItem('cart', JSON.stringify(cart));
     cartSumCtx.setCartSum(calculateCartSum());
   };
 
   
 
   const decreaseQuantity = (index) => {
-    cartLS[index].quantity = cartLS[index].quantity - 1;
-    if (cartLS[index].quantity === 0 ) {
+    cart[index].quantity = cart[index].quantity - 1;
+    if (cart[index].quantity === 0 ) {
       removeFromCart(index);
     };
-    newCart(cartLS.slice());
-    localStorage.setItem('cart', JSON.stringify(cartLS)); 
+    newCart(cart.slice());
+    localStorage.setItem('cart', JSON.stringify(cart)); 
     cartSumCtx.setCartSum(calculateCartSum());
   };
 
   const increaseQuantity = (index) => {
-    cartLS[index].quantity = cartLS[index].quantity + 1;
-    newCart(cartLS.slice());
-    localStorage.setItem('cart', JSON.stringify(cartLS));
+    cart[index].quantity = cart[index].quantity + 1;
+    newCart(cart.slice());
+    localStorage.setItem('cart', JSON.stringify(cart));
     cartSumCtx.setCartSum(calculateCartSum());
   };
 
@@ -53,7 +54,7 @@ const Cart = () => {
 
   const calculateCartSum = () => {
     let cashout= 0;
-    cartLS.forEach(e => cashout = cashout + e.product.price * e.quantity);
+    cart.forEach(e => cashout = cashout + e.product.price * e.quantity);
     return cashout.toFixed(2);
   };
 
@@ -67,16 +68,16 @@ const Cart = () => {
     <div>
 
       <div className='cart-top'>
-        { cartLS.length > 0 && <button onClick={emptyCart}>{t('empty')}</button> }
-        { cartLS.length === 0 && <div>{t('cartIsEmpty')} <Link to='/'>{t('toAddPro')}</Link></div> }
-        { cartLS.length === 1 && <div>{t('cartOneProd')}</div> }   
-        { cartLS.length > 1 && <div>{t('inCart')} {cartLS.length} {t('itms')}.</div> }
+        { cart.length > 0 && <button onClick={emptyCart}>{t('empty')}</button> }
+        { cart.length === 0 && <div>{t('cartIsEmpty')} <Link to='/'>{t('toAddPro')}</Link></div> }
+        { cart.length === 1 && <div>{t('cartOneProd')}</div> }   
+        { cart.length > 1 && <div>{t('inCart')} {cart.length} {t('itms')}.</div> }
       </div>
 
 
 
      
-        { cartLS.map((element, index) => 
+        { cart.map((element, index) => 
         
         <div className='product' key={index}>
           <img className='image' src={element.product.image} alt='pic of product'></img>
@@ -92,13 +93,15 @@ const Cart = () => {
         
       </div> ) }
       
-      { cartLS.length > 0 &&
+      { cart.length > 0 &&
           <div className='cart-bottom'>
             <div>{t('cartTotal')}: {calculateCartSum()}€ </div><br />
 
             <ParcelMachines />
 
             <Payment sum={calculateCartSum()} />
+            <OrderEmail products={cart}
+            sum={calculateCartSum()} />
         </div>}
 
       
