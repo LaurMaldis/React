@@ -1,74 +1,55 @@
 .App {
     background-color:rgb(50, 50, 73);
+    margin: 0;
+    color:white;
 }
    
 .sidebar {
     position: fixed;
-      top: 0;
-      left: 0;
-      width: 220px;
-      height: 100%;
-      background-color: #eee;
-      cursor:pointer;
+    background-color: white;
+    top: 0;
+    left: 0;
+    width: 220px;
+    height: 100%;
+    padding: 1.5625rem;
+    height: 100vh;
+    z-index: 900;
+    overflow: auto;
+      
 } 
-  
-.picture {
-    height: 450px;
-    width: 450px;
-    margin-top: 530px;
-    margin-left: 65px;
-    position: fixed;
-}
-  
-.picture2 {
-    height: 450px;
-    width: 450px;
-    position: fixed;
-    margin-left: 1700px;
-}
-
-.tekst {
-    margin-left: 500px;
-    margin-right: 300px;
-    color:white;
-}
-  
-.list {
-    padding-top: 70px;
-    text-align: center;
-    font-size: 40px;
     
-}
-  
-.tabel {
-  @font-face {
-    font-family: ;
-  }
-}
-  
-.ylemine-rida {
-    background-color: black;
-}
-  
-.pilt {
-   
-  
-    height: 400px;
-    width: 700px;
-    display: block;
-    margin-left: auto;
-    margin-right: auto;
-    position: relative;
-    margin-top: 35px;
-    margin-bottom: 35px;
-}
-  
 .sidebar-image {
-    margin-top: 40px;
-    margin-left: 30px;
-    margin-right: 10px;
+    align-items: center;
+    margin-top: 50px;
+    margin-left: 25px;
+    margin-right: 25px;
 }
   
 .sidebar-links {
     cursor: pointer;
+}
+
+.clicks1 {
+    margin-top: 30%;
+    font-size: 20px;
+    text-align: right;
+}
+.clicks {
+    font-size: 20px;
+    text-align: right;
+}
+
+.bottompicture {
+    height: 450px;
+    width: 450px;
+    margin-top: 530px;
+    margin-left: 5%;
+    position: fixed;
+}
+  
+.upperpicture {
+    height: 450px;
+    width: 450px;
+    margin-left: 75%;
+    position: fixed;
 }

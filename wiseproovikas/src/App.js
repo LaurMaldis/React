@@ -10,23 +10,24 @@ function App() {
   return (
     <div className="App">
 
-    <div><img className="picture" src="https://proovitoo.twn.ee/assets/imgs/bg-deco-left.svg" alt="" /></div>
-    <div><img className="picture2" src="https://proovitoo.twn.ee/assets/imgs/bg-deco-right.svg" alt=""/></div>
+    <div><img className="bottompicture" src="https://proovitoo.twn.ee/assets/imgs/bg-deco-left.svg" alt="" /></div>
+    <div><img className="upperpicture" src="https://proovitoo.twn.ee/assets/imgs/bg-deco-right.svg" alt=""/></div>
 
     <div className="sidebar">
       <Link to="home">
       <img  className="sidebar-image" src="https://proovitoo.twn.ee/assets/imgs/logo.svg" alt=""/>
       </Link>
-      <div  className="sidebar-links">NÕUDED</div> <br />
-      
+      <Link>
+      <div className="clicks1">NÕUDED</div> <br />
+      </Link>
       <Link to="/article">
-      <div>ARTIKKEL</div> <br />
+      <div className="clicks">ARTIKKEL</div> <br />
       </Link>
       <Link to="/list">
-      <div>TABEL</div> <br />
+      <div className="clicks">TABEL</div> <br />
       </Link>
       <Link>
-      <div>GAME OF LIFE</div> 
+      <div className="clicks">GAME OF LIFE</div> 
       </Link>
     </div>
       

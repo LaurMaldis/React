@@ -1,5 +1,5 @@
 import { useEffect, useState } from "react";
-
+import "../css/Article.css"
 
 function Article() {
     const [article, setArticle] = useState([]);
