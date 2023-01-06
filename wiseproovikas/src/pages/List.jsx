@@ -1,7 +1,6 @@
 import React, { useEffect, useState } from 'react';
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 import { faSort, faSortDown, faSortUp } from '@fortawesome/free-solid-svg-icons';
-import Pagination from 'react-bootstrap/Pagination';
 import "../css/List.css"
 
 function List() {
@@ -98,17 +97,24 @@ function List() {
     }
   };
 
-  const sortBirthday = () => {
+  const sortBirthday = (personalCode) => {
     setSortCounter(0);
     setSortLCounter(0);
     setSortSCounter(0);
+    const date = personalCode.substring(5,7);
+    const month = personalCode.substring(3,5);
+    const yearFirst = personalCode.substring(0,1)
+    const yearBeggining = (yearFirst === "3" || yearFirst === "4") ? "19" : "20";
+    const year = yearBeggining + personalCode.substring(1,3);
+    const kuupaev = new Date(date + "." + month + "." + year).toLocaleDateString();
+    alert(kuupaev);
     if (sortBCounter === 0) {
       list.sort((a,b) => 
-      a.toss.localeCompare(b.toss));
+      a.kuupaev.localeCompare(b.kuupaev));
       setList(list.slice());
       setSortBCounter(1);
     } else if (sortBCounter === 1 ) {
-      list.sort((a,b) => a.toss.localeCompare(b.toss));
+      list.sort((a,b) => b.kuupaev.localeCompare(a.kuupaev));
       setList(list.slice());
       setSortBCounter(2);
     } else if (sortBCounter === 2 ) {
@@ -117,29 +123,39 @@ function List() {
     }
   };
 
+  const prevPage = (newPage) => {
+    setActivePage(activePage - 1);
+    setList(dbList.slice(10*(newPage-1),10*newPage));
+  }
+
+  const nextPage = (newPage) => {
+    setActivePage(activePage + 1);
+    setList(dbList.slice(10*(newPage-1),10*newPage));
+  }
+
   return (  
     <div>
       <div className="pealkiri">NIMEKIRI</div>
       <table className="tabel">
         <thead>
           <tr className="ylemine-rida">
-            <th scope="col" onClick={sortFirstName}>
+            <th className="clickable" scope="col" onClick={sortFirstName}>
               Eesnimi 
               {sortCounter === 0 && <FontAwesomeIcon icon={faSort}/>}
               {sortCounter === 1 && <FontAwesomeIcon icon={faSortDown}/>}
               {sortCounter === 2 && <FontAwesomeIcon icon={faSortUp}/>}
             </th>
-              <th scope="col" onClick={sortLastName}>Perekonnanimi 
+              <th className="clickable" scope="col" onClick={sortLastName}>Perekonnanimi 
               {sortLCounter === 0 && <FontAwesomeIcon icon={faSort}/>}
               {sortLCounter === 1 && <FontAwesomeIcon icon={faSortDown}/>}
               {sortLCounter === 2 && <FontAwesomeIcon icon={faSortUp}/>} 
             </th>
-              <th scope="col" onClick={sortSex}> Sugu
+              <th className="clickable" scope="col" onClick={sortSex}> Sugu
               {sortSCounter === 0 && <FontAwesomeIcon icon={faSort}/>}
               {sortSCounter === 1 && <FontAwesomeIcon icon={faSortDown}/>}
               {sortSCounter === 2 && <FontAwesomeIcon icon={faSortUp}/>}              
             </th>
-              <th scope="col" onClick={sortBirthday}>Sünnikuupäev
+              <th className="clickable" scope="col" onClick={sortBirthday}>Sünnikuupäev
               {sortBCounter === 0 && <FontAwesomeIcon icon={faSort}/>}
               {sortBCounter === 1 && <FontAwesomeIcon icon={faSortDown}/>}
               {sortBCounter === 2 && <FontAwesomeIcon icon={faSortUp}/>} 
@@ -158,13 +174,14 @@ function List() {
             
         </thead>
       </table>
-      <div className="buttons">
-      <Pagination>{pages.map(number => 
-      <Pagination.Item key={number} onClick={() => changePage(number)} active={number === activePage}>
-        {number}
-        </Pagination.Item> )}
-      </Pagination>
+      <div>
+      { activePage > 1 && <div className="buttons" onClick={() => prevPage(activePage-1)}>Previous</div>}
+      {pages.map(number => 
+      <div className="buttons" key={number} onClick={() => changePage(number)} active={number === activePage}>
+        {number}</div>
+        )}
       </div>
+      { activePage < 4 && <div className="buttons" onClick={() => nextPage(activePage+1)}>Next</div> }
     </div>
   );
 }

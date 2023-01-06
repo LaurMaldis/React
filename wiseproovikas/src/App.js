@@ -14,7 +14,7 @@ function App() {
     <div><img className="upperpicture" src="https://proovitoo.twn.ee/assets/imgs/bg-deco-right.svg" alt=""/></div>
 
     <div className="sidebar">
-      <Link to="home">
+      <Link to="">
       <img  className="sidebar-image" src="https://proovitoo.twn.ee/assets/imgs/logo.svg" alt=""/>
       </Link>
       <Link>
@@ -33,7 +33,7 @@ function App() {
       
 
       <Routes>
-      <Route path="home" element={ <Home />}/>
+      <Route path="/" element={ <Home />}/>
       <Route path="article" element={<Article />} />
       <Route path="list" element={<List />} />
       </Routes>

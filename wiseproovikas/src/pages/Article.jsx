@@ -5,7 +5,6 @@ function Article() {
     const [article, setArticle] = useState([]);
     const url = "https://midaiganes.irw.ee/api/list/972d2b8a"
 
-    
 
     useEffect(() => {
         fetch(url)

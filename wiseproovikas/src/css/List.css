@@ -26,9 +26,11 @@
 
 .ylemine-rida {
     background-color: black;
-    cursor: pointer;
 }
 
+.clickable {
+    cursor: pointer;
+}
 .isik { 
     justify-content: space-between; 
     margin: 0 10%; 
@@ -49,8 +51,9 @@
 
 
 .buttons {
-    display:flex;
+    display: grid;
     align-items: center;
     width: 0px;
     margin: 10px auto;
+    cursor:pointer;
 }
