@@ -18,12 +18,11 @@ function Article() {
     <div>
         <div className="tekst">
             <h1>{article.title}</h1>
-            <div dangerouslySetInnerHTML={{__html: article.intro}}></div>
+            <div dangerouslySetInnerHTML={{__html: article.intro}} />
         </div>
-        <div>
-            <img className="pilt" src="https://midaiganes.irw.ee/api/imgs/large/a3dac073.jpg" alt="" />
-        </div>
-        <div className="tekst" dangerouslySetInnerHTML={{__html: article.body}}></div>
+        <img className="pilt" src="https://midaiganes.irw.ee/api/imgs/large/a3dac073.jpg" alt="" />
+        <div className="tekst" dangerouslySetInnerHTML={{__html: article.body}} />
+        <div className="taggike">{article.tags}</div>
 
     </div>
     )

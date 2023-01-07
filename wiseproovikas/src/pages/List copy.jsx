@@ -1,9 +1,7 @@
 import React, { useEffect, useState } from 'react';
-import { Link } from 'react-router-dom';
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 import { faSort, faSortDown, faSortUp } from '@fortawesome/free-solid-svg-icons';
-import "../css/List.css";
-
+import "../css/List.css"
 
 function List() {
 
@@ -14,11 +12,10 @@ function List() {
     const [sortSCounter, setSortSCounter] = useState(0);
     const [sortBCounter, setSortBCounter] = useState(0);
     const [activePage, setActivePage] = useState(1);
-    const [expandedRows, setExpandedRows] = useState([]);
-    const [expandState, setExpandState] = useState({});
-    const pages = Array.from(Array(Math.ceil(dbList.length/10)), (_, i) => i + 1);
-
-
+    const pages = [];
+    for (let number = 1; number <= Math.ceil(dbList.length/10); number++) {
+      pages.push(number)
+    };
   
     useEffect(() => {
       fetch("https://midaiganes.irw.ee/api/list?limit=500")
@@ -29,21 +26,6 @@ function List() {
       });
       
     }, []);
-
-    const handleEpandRow = (event, userId) => {
-      const currentExpandedRows = expandedRows;
-      const isRowExpanded = currentExpandedRows.includes(userId);
-  
-      let obj = {};
-      isRowExpanded ? (obj[userId] = false) :  (obj[userId] = true);
-      setExpandState(obj);
-
-      const newExpandedRows = isRowExpanded ?
-            currentExpandedRows.filter(id => id !== userId) :
-            currentExpandedRows.concat(userId);
-  
-      setExpandedRows(newExpandedRows);
-    };
 
     const changePage = (newPage) => {
       setActivePage(newPage);
@@ -180,52 +162,24 @@ function List() {
             </th>
             <th scope="col">Telefon</th>
           </tr>
-        </thead>
-        <tbody>
-
           {list.map(element =>
-          <>
-            <tr className="isik" key={element.id} >
-                <td>{element.firstname}</td>
-                <td>{element.surname}</td>
-                <td>{element.sex === "f" ? "naine" : "mees"}</td>
-                <td>{calculateBirthDate(element.personal_code.toString())}</td>
-                <td>{element.phone}</td>
-                <td>
-                  <button
-                    variant="link"
-                    onClick={event => handleEpandRow(event, element.id)}>
-                    { expandState[element.id] ? 'Hide' : 'Show' }
-                  </button>
-                </td>
-            </tr>
-            <>
-              { expandedRows.includes(element.id) ?
-                <tr>
-                  <td colSpan="3">
-                    <div>
-                      <ul>
-                        <img className="piltlist" src={element.image.small} alt={element.alt} />
-                        <div className="tekstlist" dangerouslySetInnerHTML={{__html: element.body.substring(0,300)+"..."}}></div> <br />
-                        <Link to={"/article/" + element.id}>
-                        <button className="buttonlist">Loe rohkem</button>
-                        </Link>
-                      </ul>
-                    </div>
-                  </td>
-                </tr> : null
-              }
-            </>
-          </>
-          )} 
-        </tbody>
+          <tr className="isik" key={element.id}>
+              <td>{element.firstname}</td>
+              <td>{element.surname}</td>
+              <td>{element.sex === "f" ? "naine" : "mees"}</td>
+              <td>{calculateBirthDate(element.personal_code.toString())}</td>
+              <td>{element.phone}</td>
+          </tr>
+          )}
+            
+        </thead>
       </table>
       <div>
-        { activePage > 1 && <div className="buttons" onClick={() => prevPage(activePage-1)}>Previous</div>}
-        {pages.map(number => 
-        <div className="buttons" key={number} onClick={() => changePage(number)} active={number === activePage}>
-          {number}</div>
-          )}
+      { activePage > 1 && <div className="buttons" onClick={() => prevPage(activePage-1)}>Previous</div>}
+      {pages.map(number => 
+      <div className="buttons" key={number} onClick={() => changePage(number)} active={number === activePage}>
+        {number}</div>
+        )}
       </div>
       { activePage < 4 && <div className="buttons" onClick={() => nextPage(activePage+1)}>Next</div> }
     </div>

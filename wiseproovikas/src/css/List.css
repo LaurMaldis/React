@@ -57,3 +57,20 @@
     margin: 10px auto;
     cursor:pointer;
 }
+
+.piltlist {
+    height: 200px;
+    width: 200px;
+    display: block;
+    margin-left: 0px;
+}
+
+.tekstlist {
+    display: block;
+    margin-right: auto;
+    margin-left: 0;
+}
+
+.buttonlist {
+    color:green;  
+}

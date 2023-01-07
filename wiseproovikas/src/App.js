@@ -3,7 +3,7 @@ import './App.css';
 import Article from './pages/Article';
 import Home from './pages/Home';
 import List from './pages/List';
-
+import SinglePage from './pages/Singlepage';
 
 
 function App() {
@@ -33,9 +33,10 @@ function App() {
       
 
       <Routes>
-      <Route path="/" element={ <Home />}/>
-      <Route path="article" element={<Article />} />
-      <Route path="list" element={<List />} />
+        <Route path="/" element={ <Home />}/>
+        <Route path="article" element={<Article />} />
+        <Route path="list" element={<List />} />
+        <Route path="article/:id" element={<SinglePage />} />
       </Routes>
     </div>
   );
