@@ -26,7 +26,10 @@ function SinglePage() {
                     <h1>{articleFound.title}</h1>   
                     <div dangerouslySetInnerHTML={{__html: articleFound.intro}} />
                 </div>
-                <img className="pilt" src={articleFound.image.large} alt='pildike' />  
+                <div className="container">
+                    <img className="pilt" src={articleFound.image.large} alt='pildike' /> 
+                    <div className="bottomleft" dangerouslySetInnerHTML={{__html: articleFound.image.title}}></div> 
+                </div>
                 <div className="tekst" dangerouslySetInnerHTML={{__html: articleFound.body}} />
                 <div className="taggike" dangerouslySetInnerHTML={{__html: articleFound.tags}}></div>  
             </div>

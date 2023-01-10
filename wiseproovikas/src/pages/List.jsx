@@ -17,6 +17,7 @@ function List() {
     const [expandedRows, setExpandedRows] = useState([]);
     const [expandState, setExpandState] = useState({});
     const pages = Array.from(Array(Math.ceil(dbList.length/10)), (_, i) => i + 1);
+    //const [synkar, setSynkar] = useState();
 
 
   
@@ -30,19 +31,43 @@ function List() {
       
     }, []);
 
+    // const handleEpandRow = (event, userId) => {
+
+    //   const currentExpandedRows = expandedRows;
+    //   const isRowExpanded = currentExpandedRows.includes(userId);
+
+    //   let obj = {};
+    //   isRowExpanded ? (obj[userId] = false) :  (obj[userId] = true);
+    //   setExpandState(obj);
+
+    //   const newExpandedRows = isRowExpanded ?
+    //         currentExpandedRows.filter(id => id !== userId) :
+    //         currentExpandedRows.concat(userId);
+  
+    
+    //   setExpandedRows(newExpandedRows);
+
+    // };
+
     const handleEpandRow = (event, userId) => {
+
       const currentExpandedRows = expandedRows;
       const isRowExpanded = currentExpandedRows.includes(userId);
-  
       let obj = {};
+      
+      
       isRowExpanded ? (obj[userId] = false) :  (obj[userId] = true);
       setExpandState(obj);
+      
 
       const newExpandedRows = isRowExpanded ?
             currentExpandedRows.filter(id => id !== userId) :
             currentExpandedRows.concat(userId);
-  
+      
+            
       setExpandedRows(newExpandedRows);
+      
+
     };
 
     const changePage = (newPage) => {
@@ -186,18 +211,18 @@ function List() {
           {list.map(element =>
           <>
             <tr className="isik" key={element.id} >
-                <td>{element.firstname}</td>
-                <td>{element.surname}</td>
-                <td>{element.sex === "f" ? "naine" : "mees"}</td>
-                <td>{calculateBirthDate(element.personal_code.toString())}</td>
-                <td>{element.phone}</td>
-                <td>
+                <td onClick={event => handleEpandRow(event, element.id)}>{element.firstname}</td>
+                <td onClick={event => handleEpandRow(event, element.id)}>{element.surname}</td>
+                <td onClick={event => handleEpandRow(event, element.id)}>{element.sex === "f" ? "naine" : "mees"}</td>
+                <td onClick={event => handleEpandRow(event, element.id)}>{calculateBirthDate(element.personal_code.toString())}</td>
+                <td onClick={event => handleEpandRow(event, element.id)}>{element.phone}</td>
+                {/* <td>
                   <button
                     variant="link"
                     onClick={event => handleEpandRow(event, element.id)}>
                     { expandState[element.id] ? 'Hide' : 'Show' }
                   </button>
-                </td>
+                </td> */}
             </tr>
             <>
               { expandedRows.includes(element.id) ?

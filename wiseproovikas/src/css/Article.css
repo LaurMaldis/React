@@ -4,14 +4,20 @@
     color:white;
 }
 
+.intro { 
+    font-weight: bold;
+}
+
 .pilt {
-    height: 400px;
     width: 700px;
     display: block;
     margin-left: 500px;
     position: relative;
-    margin-top: 35px;
-    margin-bottom: 35px;
+    transition: transform .2s;
+}
+
+.pilt:hover {
+    transform: scale(1.2);
 }
 
 .taggike {
@@ -22,5 +28,18 @@
     border-radius: 2rem;
     font-size: 14px;
     font-weight: 700;
-
 }
+
+.container {
+    position: relative;
+  }
+
+.bottomleft {
+    position: absolute;
+    bottom: 0px;
+    width: 680px;
+    margin-left: 500px;
+    font-size: 18px;
+    padding: 10px;
+    background-color: rgb(0, 0, 0, 0.5);
+  }
