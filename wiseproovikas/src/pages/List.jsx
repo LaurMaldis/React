@@ -141,23 +141,25 @@ function List() {
   };
 
   const sortBirthday = (personalCode) => {
+    console.log(personalCode);
     setSortCounter(0);
     setSortLCounter(0);
     setSortSCounter(0);
-    const date = personalCode.substring(5,7);
-    const month = personalCode.substring(3,5);
-    const yearFirst = personalCode.substring(0,1)
-    const yearBeggining = (yearFirst === "3" || yearFirst === "4") ? "19" : "20";
-    const year = yearBeggining + personalCode.substring(1,3);
-    const kuupaev = new Date(date + "." + month + "." + year).toLocaleDateString();
-    alert(kuupaev);
+
+    // const date = personalCode.substring(5,7);
+    // const month = personalCode.substring(3,5);
+    // const yearFirst = personalCode.substring(0,1)
+    // const yearBeggining = (yearFirst === "3" || yearFirst === "4") ? "19" : "20";
+    // const year = yearBeggining + personalCode.substring(1,3);
+    // const synn = new Date(date + "." + month + "." + year).getMilliseconds();
+    
     if (sortBCounter === 0) {
       list.sort((a,b) => 
-      a.kuupaev.localeCompare(b.kuupaev));
+      a.kuupaev - b.kuupaev);
       setList(list.slice());
       setSortBCounter(1);
     } else if (sortBCounter === 1 ) {
-      list.sort((a,b) => b.kuupaev.localeCompare(a.kuupaev));
+      list.sort((a,b) => b.kuupaev - a.kuupaev);
       setList(list.slice());
       setSortBCounter(2);
     } else if (sortBCounter === 2 ) {
@@ -198,7 +200,7 @@ function List() {
               {sortSCounter === 1 && <FontAwesomeIcon icon={faSortDown}/>}
               {sortSCounter === 2 && <FontAwesomeIcon icon={faSortUp}/>}              
             </th>
-              <th className="clickable" scope="col" onClick={sortBirthday}>Sünnikuupäev
+              <th className="clickable" scope="col" onClick={() => sortBirthday("37910302648")}>Sünnikuupäev
               {sortBCounter === 0 && <FontAwesomeIcon icon={faSort}/>}
               {sortBCounter === 1 && <FontAwesomeIcon icon={faSortDown}/>}
               {sortBCounter === 2 && <FontAwesomeIcon icon={faSortUp}/>} 
@@ -210,19 +212,12 @@ function List() {
 
           {list.map(element =>
           <>
-            <tr className="isik" key={element.id} >
+            <tr className="isik" key={element.id}>
                 <td onClick={event => handleEpandRow(event, element.id)}>{element.firstname}</td>
                 <td onClick={event => handleEpandRow(event, element.id)}>{element.surname}</td>
                 <td onClick={event => handleEpandRow(event, element.id)}>{element.sex === "f" ? "naine" : "mees"}</td>
                 <td onClick={event => handleEpandRow(event, element.id)}>{calculateBirthDate(element.personal_code.toString())}</td>
                 <td onClick={event => handleEpandRow(event, element.id)}>{element.phone}</td>
-                {/* <td>
-                  <button
-                    variant="link"
-                    onClick={event => handleEpandRow(event, element.id)}>
-                    { expandState[element.id] ? 'Hide' : 'Show' }
-                  </button>
-                </td> */}
             </tr>
             <>
               { expandedRows.includes(element.id) ?
@@ -245,14 +240,14 @@ function List() {
           )} 
         </tbody>
       </table>
-      <div>
-        { activePage > 1 && <div className="buttons" onClick={() => prevPage(activePage-1)}>Previous</div>}
+      <div className="buttons">
+        { activePage > 1 && <div  onClick={() => prevPage(activePage-1)}>Previous</div>}
         {pages.map(number => 
-        <div className="buttons" key={number} onClick={() => changePage(number)} active={number === activePage}>
+        <div key={number} onClick={() => changePage(number)} className={number === activePage ? "button-active" : ""}>
           {number}</div>
           )}
+        { activePage < 4 && <div  onClick={() => nextPage(activePage+1)}>Next</div> }
       </div>
-      { activePage < 4 && <div className="buttons" onClick={() => nextPage(activePage+1)}>Next</div> }
     </div>
   );
 }

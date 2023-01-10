@@ -22,7 +22,7 @@ function SinglePage() {
         {articleFound !== undefined &&
             <div>
                 <div key={articleFound.id}>
-                <div className="pilt">
+                <div>
                     <h1>{articleFound.title}</h1>   
                     <div dangerouslySetInnerHTML={{__html: articleFound.intro}} />
                 </div>
@@ -31,7 +31,7 @@ function SinglePage() {
                     <div className="bottomleft" dangerouslySetInnerHTML={{__html: articleFound.image.title}}></div> 
                 </div>
                 <div className="tekst" dangerouslySetInnerHTML={{__html: articleFound.body}} />
-                <div className="taggike" dangerouslySetInnerHTML={{__html: articleFound.tags}}></div>  
+                {articleFound.tags.map(e => <span className="taggike">{e}</span> )}
             </div>
             </div>}
             

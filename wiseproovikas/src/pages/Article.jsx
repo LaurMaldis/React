@@ -14,7 +14,9 @@ function Article() {
         })
     }, []);
 
-
+    if (article.length === 0  )
+     {return <div>Loading...</div>};
+    
     return ( 
     <div>
         <div className="tekst">
@@ -22,8 +24,8 @@ function Article() {
             <div className="intro" dangerouslySetInnerHTML={{__html: article.intro}} />
         </div>
         <div className="container">
-            <img className="pilt" src="https://midaiganes.irw.ee/api/imgs/large/a3dac073.jpg" alt="" />
-            <div className="bottomleft">Culpa ipsum tempor do laborum mollit</div>
+            <img className="pilt" src={article.image.large} alt="" />
+            <div className="bottomleft" dangerouslySetInnerHTML={{__html: article.image.title}}></div>
         </div>
         <div className="tekst" dangerouslySetInnerHTML={{__html: article.body}} />
         <div className="taggike">{article.tags}</div>
