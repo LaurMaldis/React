@@ -66,6 +66,7 @@ const Homepage = () => {
       <SortButtons
       products={products}
       setProducts={setProducts} /> 
+      <h1>PS! I'm working on my own webpage. This page is just to show what I've worked with in React.</h1>
       <div>{activePage*20 > filteredProducts.length ? filteredProducts.length : activePage*20}  
       / {filteredProducts.length} tk</div>
       
