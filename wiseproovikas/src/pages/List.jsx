@@ -17,7 +17,7 @@ function List() {
     const [expandedRows, setExpandedRows] = useState([]);
     const [expandState, setExpandState] = useState({});
     const pages = Array.from(Array(Math.ceil(dbList.length/10)), (_, i) => i + 1);
-    //const [synkar, setSynkar] = useState();
+    
 
 
   
@@ -146,27 +146,43 @@ function List() {
     setSortLCounter(0);
     setSortSCounter(0);
 
-    // const date = personalCode.substring(5,7);
-    // const month = personalCode.substring(3,5);
-    // const yearFirst = personalCode.substring(0,1)
-    // const yearBeggining = (yearFirst === "3" || yearFirst === "4") ? "19" : "20";
-    // const year = yearBeggining + personalCode.substring(1,3);
-    // const synn = new Date(date + "." + month + "." + year).getMilliseconds();
-    
-    if (sortBCounter === 0) {
-      list.sort((a,b) => 
-      a.kuupaev - b.kuupaev);
-      setList(list.slice());
-      setSortBCounter(1);
-    } else if (sortBCounter === 1 ) {
-      list.sort((a,b) => b.kuupaev - a.kuupaev);
-      setList(list.slice());
-      setSortBCounter(2);
-    } else if (sortBCounter === 2 ) {
-      setList(dbList.slice(0,10));
-      setSortBCounter(0);
-    }
-  };
+  //   if (sortBCounter === 0) {
+  //     list.sort((a,b) => 
+  //     a.kuupaev - b.kuupaev);
+  //     setList(list.slice());
+  //     setSortBCounter(1);
+  //   } else if (sortBCounter === 1 ) {
+  //     list.sort((a,b) => b.kuupaev - a.kuupaev);
+  //     setList(list.slice());
+  //     setSortBCounter(2);
+  //   } else if (sortBCounter === 2 ) {
+  //     setList(dbList.slice(0,10));
+  //     setSortBCounter(0);
+  //   }
+  // };
+
+  if (sortBCounter === 0) {
+    list.sort((a, b) => {
+      const dateA = calculateBirthDate(a.kuupaev);
+      const dateB = calculateBirthDate(b.kuupaev);
+      return dateA.localeCompare(dateB);
+    });
+    setList(list.slice());
+    setSortBCounter(1);
+  } else if (sortBCounter === 1) {
+    list.sort((a, b) => {
+      const dateA = calculateBirthDate(a.kuupaev);
+      const dateB = calculateBirthDate(b.kuupaev);
+      return dateB.localeCompare(dateA);
+    });
+    setList(list.slice());
+    setSortBCounter(2);
+  } else if (sortBCounter === 2) {
+    setList(dbList.slice(0, 10));
+    setSortBCounter(0);
+    setActivePage(activePage)
+  }
+};
 
   const prevPage = (newPage) => {
     setActivePage(activePage - 1);
@@ -200,7 +216,7 @@ function List() {
               {sortSCounter === 1 && <FontAwesomeIcon icon={faSortDown}/>}
               {sortSCounter === 2 && <FontAwesomeIcon icon={faSortUp}/>}              
             </th>
-              <th className="clickable" scope="col" onClick={() => sortBirthday("37910302648")}>Sünnikuupäev
+              <th className="clickable" scope="col" onClick={sortBirthday}>Sünnikuupäev
               {sortBCounter === 0 && <FontAwesomeIcon icon={faSort}/>}
               {sortBCounter === 1 && <FontAwesomeIcon icon={faSortDown}/>}
               {sortBCounter === 2 && <FontAwesomeIcon icon={faSortUp}/>} 
